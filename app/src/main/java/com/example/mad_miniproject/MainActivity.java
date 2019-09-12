@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnAccount,btnLoan,btnMoneyTrans,btnBillPay;
+    private Button btnAccount,btnLoan,btnMoneyTrans,btnBillPay,btnAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +19,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.btnBillPay = (Button) findViewById(R.id.btnBillPayment);
         this.btnMoneyTrans = (Button) findViewById(R.id.btnMoneyTransfer);
 
+        btnAdmin = findViewById(R.id.button5);
+
         btnAccount.setOnClickListener(this);
         btnBillPay.setOnClickListener(this);
         btnMoneyTrans.setOnClickListener(this);
+
+        btnAdmin.setOnClickListener(this);
     }
 
     @Override
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(view.getId()==R.id.btnMoneyTransfer){
             Intent moneyTrans = new Intent(this,MoneyTransMain.class);
             startActivity(moneyTrans);
+        }else if(view.getId()==R.id.button5){
+            Intent admin = new Intent(this,MainAdmin.class);
+            startActivity(admin);
         }
     }
 }

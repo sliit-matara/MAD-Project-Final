@@ -28,4 +28,5 @@
     <string name="cancel">Cancel</string>
     <string name="ownAccount">My Own Account</string>
     <string name="otherAccount">Other Account</string>
+    <string name="transfer">Transfer</string>
 </resources>

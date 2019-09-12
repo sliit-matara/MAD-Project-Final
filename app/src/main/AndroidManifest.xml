@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MoneyTransMain"></activity>
+        <activity android:name=".MoneyTransOwnAccount"></activity>
+        <activity android:name=".MoneyTransMain" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".Login">
             <intent-filter>

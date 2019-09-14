@@ -39,7 +39,6 @@ public final class BankMaster {
         public static final String COLUMN_NAME_ACCOUNTNUMBER = "accountNo";
         public static final String COLUMN_NAME_TOACCOUNT = "toAccount";
         public static final String COLUMN_NAME_AMOUNT = "amount";
-        public static final String COLUMN_NAME_TRANSFER_MODE = "transMode";
         public static final String COLUMN_NAME_DATETIME = "dateTime";
     }
 

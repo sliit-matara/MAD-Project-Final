@@ -30,4 +30,26 @@
     <string name="otherAccount">Other Account</string>
     <string name="transfer">Transfer</string>
     <string name="btnDone">Done</string>
+    <string name="applay">Apply</string>
+
+    <!--Array List-->
+    <string-array name="accType">
+        <item>Choose...</item>
+        <item>Saving Account</item>
+        <item>Current Account</item>
+    </string-array>
+
+    <string-array name="relationship">
+        <item>Choose...</item>
+        <item>Single</item>
+        <item>Joint</item>
+    </string-array>
+
+    <string-array name="currency">
+        <item>LKR</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>AUD</item>
+        <item>GBP</item>
+    </string-array>
 </resources>

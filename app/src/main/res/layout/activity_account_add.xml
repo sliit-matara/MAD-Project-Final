@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".AccountAdd">
 
     <TextView
@@ -38,7 +40,7 @@
         app:layout_constraintVertical_bias="0.167" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spnAccType"
         android:layout_width="214dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
@@ -85,7 +87,7 @@
         app:layout_constraintVertical_bias="0.383" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spnRelationship"
         android:layout_width="214dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"

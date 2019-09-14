@@ -18,12 +18,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.btnAccount = (Button) findViewById(R.id.btnAccount);
         this.btnBillPay = (Button) findViewById(R.id.btnBillPayment);
         this.btnMoneyTrans = (Button) findViewById(R.id.btnMoneyTransfer);
+        this.btnLoan = (Button) findViewById(R.id.btnLoan);
 
         btnAdmin = findViewById(R.id.button5);
 
         btnAccount.setOnClickListener(this);
         btnBillPay.setOnClickListener(this);
         btnMoneyTrans.setOnClickListener(this);
+        btnLoan.setOnClickListener(this);
 
         btnAdmin.setOnClickListener(this);
     }
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(view.getId()==R.id.button5){
             Intent admin = new Intent(this,MainAdmin.class);
             startActivity(admin);
+        }else if(view.getId()==R.id.btnLoan){
+            Intent loan = new Intent(this,LoanApply.class);
+            startActivity(loan);
         }
     }
 }

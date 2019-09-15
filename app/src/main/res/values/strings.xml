@@ -52,4 +52,16 @@
         <item>AUD</item>
         <item>GBP</item>
     </string-array>
+
+    <string-array name="billerList">
+        <item>Choose...</item>
+        <item>Dialog</item>
+        <item>Mobitel</item>
+        <item>Hutch</item>
+        <item>Airtel</item>
+        <item>SLT</item>
+        <item>Lanka Bell</item>
+        <item>CEB</item>
+        <item>Water Board</item>
+    </string-array>
 </resources>

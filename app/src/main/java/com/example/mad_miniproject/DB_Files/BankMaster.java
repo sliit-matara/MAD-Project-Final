@@ -70,7 +70,7 @@ public final class BankMaster {
     }
 
     protected static class Transaction implements BaseColumns{
-        public static final String TABLE_NAME = "transaction";
+        public static final String TABLE_NAME = "transactionList";
         public static final String COLUMN_NAME_TRANSACTIONID = "transactionID";
         public static final String COLUMN_NAME_ACCOUNTNUMBER = "accountNo";
         public static final String COLUMN_NAME_TRANSACTIONDATE = "transactionDate";

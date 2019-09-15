@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "BankSystem1.db";
+    public static final String DATABASE_NAME = "BankSystem2.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -16,44 +16,44 @@ public class DBHelper extends SQLiteOpenHelper {
         String ACCOUNT_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Account.TABLE_NAME+" ("+
                         BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER PRIMARY KEY,"+
-                        BankMaster.Account.COLUMN_NAME_ACCOUNTTYPE+" TEXT,"+
-                        BankMaster.Account.COLUMN_NAME_OPENEDDATE+" TEXT,"+
-                        BankMaster.Account.COLUMN_NAME_RELATIONSHIP+" TEXT,"+
-                        BankMaster.Account.COLUMN_NAME_BALANCE+" REAL,"+
+                        BankMaster.Account.COLUMN_NAME_ACCOUNTTYPE+" TEXT NOT NULL,"+
+                        BankMaster.Account.COLUMN_NAME_OPENEDDATE+" TEXT NOT NULL,"+
+                        BankMaster.Account.COLUMN_NAME_RELATIONSHIP+" TEXT NOT NULL,"+
+                        BankMaster.Account.COLUMN_NAME_BALANCE+" REAL NOT NULL,"+
                         BankMaster.Account.COLUMN_NAME_PRODUCTNAME+" TEXT,"+
                         BankMaster.Account.COLUMN_NAME_BRANCH+" TEXT)";
 
         String ACCOUNTHOLDER_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.AccountHolder.TABLE_NAME+" ("+
                         BankMaster.AccountHolder.COLUMN_NAME_NIC+" TEXT PRIMARY KEY,"+
-                        BankMaster.AccountHolder.COLUMN_NAME_HOLDERNAME+" TEXT,"+
-                        BankMaster.AccountHolder.COLUMN_NAME_MOBILENO+" TEXT,"+
-                        BankMaster.AccountHolder.COLUMN_NAME_DOB+" TEXT,"+
+                        BankMaster.AccountHolder.COLUMN_NAME_HOLDERNAME+" TEXT NOT NULL,"+
+                        BankMaster.AccountHolder.COLUMN_NAME_MOBILENO+" TEXT NOT NULL,"+
+                        BankMaster.AccountHolder.COLUMN_NAME_DOB+" TEXT NOT NULL,"+
                         BankMaster.AccountHolder.COLUMN_NAME_ADDRESS+" TEXT,"+
-                        BankMaster.AccountHolder.COLUMN_NAME_EMAIL+" TEXT)";
+                        BankMaster.AccountHolder.COLUMN_NAME_EMAIL+" TEXT NOT NULL)";
 
         String LOGIN_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Login.TABLE_NAME+" ("+
                         BankMaster.Login.COLUMN_NAME_USERNAME+" TEXT PRIMARY KEY,"+
-                        BankMaster.Login.COLUMN_NAME_PASSWORD+" TEXT,"+
+                        BankMaster.Login.COLUMN_NAME_PASSWORD+" TEXT NOT NULL,"+
                         BankMaster.Login.COLUMN_NAME_NIC+" TEXT REFERENCES "+ BankMaster.AccountHolder.TABLE_NAME +"("+ BankMaster.AccountHolder.COLUMN_NAME_NIC +"))";
 
         String MONEYTRANSFER_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.MoneyTransfer.TABLE_NAME+" ("+
                         BankMaster.MoneyTransfer.COLUMN_NAME_TRANSFERID+" TEXT PRIMARY KEY,"+
-                        BankMaster.MoneyTransfer.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+"),"+
-                        BankMaster.MoneyTransfer.COLUMN_NAME_TOACCOUNT+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+"),"+
-                        BankMaster.MoneyTransfer.COLUMN_NAME_AMOUNT+" REAL,"+
-                        BankMaster.MoneyTransfer.COLUMN_NAME_DATETIME+" TEXT)";
+                        BankMaster.MoneyTransfer.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+") NOT NULL,"+
+                        BankMaster.MoneyTransfer.COLUMN_NAME_TOACCOUNT+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+") NOT NULL,"+
+                        BankMaster.MoneyTransfer.COLUMN_NAME_AMOUNT+" REAL NOT NULL,"+
+                        BankMaster.MoneyTransfer.COLUMN_NAME_DATETIME+" TEXT NOT NULL)";
 
         String BILLPAYMENT_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.BillPayment.TABLE_NAME+" ("+
                         BankMaster.BillPayment.COLUMN_NAME_BILLID+" TEXT PRIMARY KEY,"+
-                        BankMaster.BillPayment.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+"),"+
-                        BankMaster.BillPayment.COLUMN_NAME_BILLER+" TEXT,"+
-                        BankMaster.BillPayment.COLUMN_NAME_BILLER_ACCOUNTNUMBER+" TEXT,"+
-                        BankMaster.BillPayment.COLUMN_NAME_AMOUNT+" REAL,"+
-                        BankMaster.BillPayment.COLUMN_NAME_DATETIME+" TEXT)";
+                        BankMaster.BillPayment.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+") NOT NULL,"+
+                        BankMaster.BillPayment.COLUMN_NAME_BILLER+" TEXT NOT NULL,"+
+                        BankMaster.BillPayment.COLUMN_NAME_BILLER_ACCOUNTNUMBER+" TEXT NOT NULL,"+
+                        BankMaster.BillPayment.COLUMN_NAME_AMOUNT+" REAL NOT NULL,"+
+                        BankMaster.BillPayment.COLUMN_NAME_DATETIME+" TEXT NOT NULL)";
 
         String ACCOUNT_HOLDER_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Account_Holder.TABLE_NAME+" ("+
@@ -64,21 +64,21 @@ public class DBHelper extends SQLiteOpenHelper {
         String LOAN_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Loan.TABLE_NAME+" ("+
                         BankMaster.Loan.COLUMN_NAME_LOANID+" TEXT PRIMARY KEY,"+
-                        BankMaster.Loan.COLUMN_NAME_NIC+" TEXT REFERENCES "+ BankMaster.AccountHolder.TABLE_NAME+"("+ BankMaster.AccountHolder.COLUMN_NAME_NIC+"),"+
-                        BankMaster.Loan.COLUMN_NAME_TYPE+" TEXT,"+
-                        BankMaster.Loan.COLUMN_NAME_AMOUNT+" REAL,"+
-                        BankMaster.Loan.COLUMN_NAME_APPROVED_DATE+" TEXT,"+
-                        BankMaster.Loan.COLUMN_NAME_DURATION+" INTEGER,"+
+                        BankMaster.Loan.COLUMN_NAME_NIC+" TEXT REFERENCES "+ BankMaster.AccountHolder.TABLE_NAME+"("+ BankMaster.AccountHolder.COLUMN_NAME_NIC+") NOT NULL,"+
+                        BankMaster.Loan.COLUMN_NAME_TYPE+" TEXT NOT NULL,"+
+                        BankMaster.Loan.COLUMN_NAME_AMOUNT+" REAL NOT NULL,"+
+                        BankMaster.Loan.COLUMN_NAME_APPROVED_DATE+" TEXT NOT NULL,"+
+                        BankMaster.Loan.COLUMN_NAME_DURATION+" INTEGER NOT NULL,"+
                         BankMaster.Loan.COLUMN_NAME_INTEREST_RATE+" REAL)";
 
-        /*String TRANSACTION_CREATE_QUERY =
+        String TRANSACTION_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Transaction.TABLE_NAME+" ("+
                         BankMaster.Transaction.COLUMN_NAME_TRANSACTIONID+" TEXT PRIMARY KEY,"+
-                        BankMaster.Transaction.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+"),"+
-                        BankMaster.Transaction.COLUMN_NAME_TRANSACTIONDATE+" TEXT,"+
+                        BankMaster.Transaction.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+") NOT NULL,"+
+                        BankMaster.Transaction.COLUMN_NAME_TRANSACTIONDATE+" TEXT NOT NULL,"+
                         BankMaster.Transaction.COLUMN_NAME_DEBIT+" REAL,"+
                         BankMaster.Transaction.COLUMN_NAME_CREDIT+" REAL,"+
-                        BankMaster.Transaction.COLUMN_NAME_BALANCE+" REAL)";*/
+                        BankMaster.Transaction.COLUMN_NAME_BALANCE+" REAL NOT NULL)";
 
         String ADMIN_INSERT_VALUE_QUERY =
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+"("+ BankMaster.Login.COLUMN_NAME_USERNAME+", "+ BankMaster.Login.COLUMN_NAME_PASSWORD +")"+
@@ -91,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(BILLPAYMENT_CREATE_QUERY);
         db.execSQL(ACCOUNT_HOLDER_CREATE_QUERY);
         db.execSQL(LOAN_CREATE_QUERY);
-        //db.execSQL(TRANSACTION_CREATE_QUERY);
+        db.execSQL(TRANSACTION_CREATE_QUERY);
         db.execSQL(ADMIN_INSERT_VALUE_QUERY);
     }
 

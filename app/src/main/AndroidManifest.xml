@@ -25,8 +25,16 @@
         <activity android:name=".PayBillConfirm" />
         <activity android:name=".PayBillVerify" />
         <activity android:name=".PayBill" />
-        <activity android:name=".AccountJoined" />
-        <activity android:name=".AccountSingle" />
+        <activity android:name=".AccountJoined"
+            android:parentActivityName=".AccountAdd">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountAdd"></meta-data>
+        </activity>
+        <activity android:name=".AccountSingle"
+            android:parentActivityName=".AccountAdd">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountAdd"></meta-data>
+        </activity>
         <activity android:name=".UserAccountAdd" />
         <activity android:name=".MemberAdd" />
         <activity android:name=".AccountAdd" />

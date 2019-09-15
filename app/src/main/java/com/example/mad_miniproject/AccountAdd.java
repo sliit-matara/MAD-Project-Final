@@ -14,23 +14,32 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mad_miniproject.DB_Files.DBHelper;
+
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class AccountAdd extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String EXTRA_MESSAGE = "com.example.AccNum.ACCOUNTNUMBER";
 
     private Spinner accType,relation;
     private EditText txtCurBal,txtProdName,txtBranch;
     private TextView addDate,erTxtAccType,erTxtDate,erTxtRelation,erTxtCurBal;
     private DatePickerDialog.OnDateSetListener setListener;
     private Button btnAddAccount;
+    int accountNumber;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_add);
+
+        dbHelper = new DBHelper(this);
 
         addDate = (TextView) findViewById(R.id.txtDate);
         erTxtAccType = (TextView) findViewById(R.id.erTxtAccType);
@@ -92,10 +101,6 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnAddAccount){
-            //String numericExp = "^[0-9]*(?:\\.[0-9]*)?$";
-
-            //Matcher balMatch = Pattern.compile(numericExp).matcher(txtCurBal.getText().toString());
-
             if(accType.getSelectedItem().toString().equals("Choose...")){
                 erTxtAccType.setTextColor(Color.RED);
                 erTxtAccType.setText("Please select one");
@@ -121,11 +126,42 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
                 erTxtDate.setText("");
                 erTxtRelation.setText("");
             }else{
-                Intent adminMain = new Intent(this,MainAdmin.class);
-                startActivity(adminMain);
+                addAccount();
+                if(relation.getSelectedItem().toString().equals("Single")){
+                    Intent addSingleMem = new Intent(this,AccountSingle.class);
+                    addSingleMem.putExtra(EXTRA_MESSAGE,Integer.toString(accountNumber));
+                    startActivity(addSingleMem);
+                }else if(relation.getSelectedItem().toString().equals("Joint")){
+                    Intent addMultMem = new Intent(this,AccountJoined.class);
+                    addMultMem.putExtra(EXTRA_MESSAGE,Integer.toString(accountNumber));
+                    startActivity(addMultMem);
+                }
             }
         }
     }
 
+    private void addAccount(){
+        String accountType = accType.getSelectedItem().toString();
+        String openDate = addDate.getText().toString();
+        String relationship = relation.getSelectedItem().toString();
+        String bal = txtCurBal.getText().toString();
+        double balance = Float.parseFloat(bal);
+        String productName = txtProdName.getText().toString();
+        String branch = txtBranch.getText().toString();
+
+        ArrayList<Integer> accNo = dbHelper.readLastAccountNumber();
+        String lastAcc = accNo.get(0).toString();
+        if(lastAcc.equals("")){
+            accountNumber=12345678;
+        }else{
+            int preAccNumber = Integer.parseInt(lastAcc);
+            accountNumber = preAccNumber+1;
+        }
+
+        if(dbHelper.addInfoToAccount(accountNumber,accountType,openDate,relationship,balance,productName,branch))
+            Toast.makeText(getApplicationContext(),"Successfully Inserted!!!",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(),"Not Inserted!!!",Toast.LENGTH_LONG).show();
+    }
 
 }

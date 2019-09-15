@@ -2,8 +2,12 @@ package com.example.mad_miniproject.DB_Files;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -246,4 +250,35 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return false;
     }
+
+    public ArrayList<Integer> readLastAccountNumber(){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] projection = {
+                BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER
+        };
+
+        String sortOrder = BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER +" DESC";
+
+        Cursor cursor = db.query(
+                BankMaster.Account.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        ArrayList<Integer> accountNumbers = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            int accountNumber = cursor.getInt(cursor.getColumnIndexOrThrow(BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER));
+            accountNumbers.add(accountNumber);
+        }
+        cursor.close();
+        return accountNumbers;
+    }
+
+
 }

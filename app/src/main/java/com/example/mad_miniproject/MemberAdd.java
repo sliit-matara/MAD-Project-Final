@@ -125,7 +125,7 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
                 erTxtDOB.setText("");
                 erTxtNIC.setText("");
             }else{
-                //addMemeber();
+                addMemeber();
                 Intent adminMain = new Intent(this,MainAdmin.class);
                 startActivity(adminMain);
             }

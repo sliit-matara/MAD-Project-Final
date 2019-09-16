@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String HOLDER_NIC = "com.example.nic.HOLDER_NIC";
+
     private Button btnSignIn;
     private EditText txtUN,txtPwd;
     DBHelper dbHelper;
@@ -36,14 +38,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnSignIn){
-            if(!readUNPWD()){
-                Intent login = new Intent(this,Login.class);
-                startActivity(login);
-            }
+            readUNPWD();
         }
     }
 
-    private boolean readUNPWD(){
+    private void readUNPWD(){
         String userName = txtUN.getText().toString();
         String password = txtPwd.getText().toString();
 
@@ -58,10 +57,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 startActivity(adminMain);
             }else {
                 Intent main = new Intent(this, MainActivity.class);
+                main.putExtra(HOLDER_NIC,list.get(2));
                 startActivity(main);
             }
-            return true;
-        }else
-            return false;
+        }else if((!list.get(0).toString().equals(userName))||(!list.get(1).toString().equals(password))){
+            Toast.makeText(getApplicationContext(),"Incorrect username or password!!!",Toast.LENGTH_LONG).show();
+        }
     }
 }

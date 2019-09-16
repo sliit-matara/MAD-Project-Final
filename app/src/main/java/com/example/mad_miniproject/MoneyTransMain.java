@@ -9,7 +9,10 @@ import android.widget.Button;
 
 public class MoneyTransMain extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String USERNIC = "com.example.nic";
+
     private Button ownAcc,otherAcc;
+    String nic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,9 @@ public class MoneyTransMain extends AppCompatActivity implements View.OnClickLis
         ownAcc = (Button) findViewById(R.id.btnOwnAcc);
         otherAcc = (Button) findViewById(R.id.btnOtherAcc);
 
+        Intent intent = getIntent();
+        nic = intent.getStringExtra(MainActivity.NICOFHOLDER);
+
         ownAcc.setOnClickListener(this);
         otherAcc.setOnClickListener(this);
     }
@@ -27,9 +33,11 @@ public class MoneyTransMain extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view.getId()==R.id.btnOwnAcc){
             Intent ownAccount = new Intent(this,MoneyTransOwnAccount.class);
+            ownAccount.putExtra(USERNIC,nic);
             startActivity(ownAccount);
         }else if(view.getId()==R.id.btnOtherAcc){
             Intent otherAccount = new Intent(this,MoneyTransOtherAccount.class);
+            otherAccount.putExtra(USERNIC,nic);
             startActivity(otherAccount);
         }
     }

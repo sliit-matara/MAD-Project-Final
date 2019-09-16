@@ -31,6 +31,7 @@
     <string name="transfer">Transfer</string>
     <string name="btnDone">Done</string>
     <string name="applay">Apply</string>
+    <string name="change">Change</string>
 
     <!--Array List-->
     <string-array name="accType">

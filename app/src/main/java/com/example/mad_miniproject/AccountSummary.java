@@ -16,7 +16,7 @@ public class AccountSummary extends AppCompatActivity {
         setContentView(R.layout.activity_account_summary);
 
         spnCurrency = (Spinner) findViewById(R.id.spnCurrency);
-        spnAccount = (Spinner) findViewById(R.id.spnAccount);
+        spnAccount = (Spinner) findViewById(R.id.spnFrom);
 
         ArrayAdapter<String> currencyAdapter = new ArrayAdapter<String>(AccountSummary.this,android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.currency));

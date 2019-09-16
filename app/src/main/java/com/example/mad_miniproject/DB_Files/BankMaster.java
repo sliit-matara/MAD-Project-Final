@@ -44,7 +44,7 @@ public final class BankMaster {
 
     protected static class BillPayment implements BaseColumns{
         public static final String TABLE_NAME = "billPayment";
-        public static final String COLUMN_NAME_BILLID = "transferID";
+        public static final String COLUMN_NAME_BILLID = "paymentID";
         public static final String COLUMN_NAME_ACCOUNTNUMBER = "accountNo";
         public static final String COLUMN_NAME_BILLER = "biller";
         public static final String COLUMN_NAME_BILLER_ACCOUNTNUMBER = "billerAccNumber";

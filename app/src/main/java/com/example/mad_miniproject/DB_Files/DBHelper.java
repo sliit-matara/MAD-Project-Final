@@ -280,5 +280,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return accountNumbers;
     }
 
+    public ArrayList<String> getUnPwd(String uname,String pwd){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String read = "SELECT username,password FROM "+ BankMaster.Login.TABLE_NAME+" WHERE "+ BankMaster.Login.COLUMN_NAME_USERNAME+"=? AND "+ BankMaster.Login.COLUMN_NAME_PASSWORD+"=?";
+
+        Cursor cursor = db.rawQuery(read,new String[]{uname,pwd});
+
+        ArrayList<String> userNames = new ArrayList<>();
+        //ArrayList<String> passwords = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            String userName = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_USERNAME));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_PASSWORD));
+
+            userNames.add(userName);
+            userNames.add(password);
+        }
+        cursor.close();
+        return userNames;
+    }
 
 }

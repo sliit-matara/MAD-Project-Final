@@ -1,5 +1,6 @@
 package com.example.mad_miniproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
 
@@ -34,17 +36,32 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnSignIn){
-            Intent main =new Intent(this,MainActivity.class);
-            startActivity(main);
+            if(!readUNPWD()){
+                Intent login = new Intent(this,Login.class);
+                startActivity(login);
+            }
         }
     }
 
-    private void readUNPWD(){
+    private boolean readUNPWD(){
         String userName = txtUN.getText().toString();
         String password = txtPwd.getText().toString();
 
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<>();
 
-        //list = dbHelper.
+        list = dbHelper.getUnPwd(userName,password);
+
+        if((list.get(0).toString().equals(userName))&&(list.get(1).toString().equals(password))){
+            Toast.makeText(getApplicationContext(),"You are successfully logged!!!",Toast.LENGTH_LONG).show();
+            if(list.get(0).toString().equals("Admin")){
+                Intent adminMain = new Intent(this,MainAdmin.class);
+                startActivity(adminMain);
+            }else {
+                Intent main = new Intent(this, MainActivity.class);
+                startActivity(main);
+            }
+            return true;
+        }else
+            return false;
     }
 }

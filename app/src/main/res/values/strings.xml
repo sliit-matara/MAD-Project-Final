@@ -65,4 +65,22 @@
         <item>CEB</item>
         <item>Water Board</item>
     </string-array>
+
+    <string-array name="loanType">
+        <item>Choose...</item>
+        <item>Student</item>
+    </string-array>
+    <string-array name="loanDuration">
+        <item>Choose...</item>
+        <item>1 month</item>
+        <item>3 months</item>
+        <item>6 months</item>
+        <item>9 months</item>
+        <item>12 months</item>
+        <item>18 months</item>
+        <item>24 months</item>
+        <item>36 months</item>
+        <item>48 months</item>
+        <item>60 months</item>
+    </string-array>
 </resources>

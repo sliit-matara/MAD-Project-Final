@@ -61,6 +61,7 @@ public final class BankMaster {
         public static final String COLUMN_NAME_APPROVED_DATE = "appDate";
         public static final String COLUMN_NAME_DURATION = "duration";
         public static final String COLUMN_NAME_INTEREST_RATE = "intRate";
+        public static final String COLUMN_NAME_PERMONTHRATE = "monthRate";
     }
 
     protected static class Account_Holder implements BaseColumns{

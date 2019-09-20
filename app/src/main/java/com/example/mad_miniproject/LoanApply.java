@@ -5,18 +5,56 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.mad_miniproject.DB_Files.DBHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class LoanApply extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnApply;
+    DBHelper dbHelper;
+    public Spinner spnType,spnDuration;
+    public EditText txtAmount,txtIntRate,txtMonRate;
+    public String nic;
+    public int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_apply);
 
+        dbHelper = new DBHelper(this);
+
         btnApply = (Button) findViewById(R.id.btnLoanApply);
+        spnType = findViewById(R.id.spnLoanType);
+        spnDuration = findViewById(R.id.spnLoanDuration);
+        txtAmount = findViewById(R.id.txtLoanAmount);
+        txtIntRate = findViewById(R.id.txtIntRate);
+        txtMonRate = findViewById(R.id.txtMonthRate);
+
+        ArrayAdapter<String> loanTypeAdapter = new ArrayAdapter<String>(LoanApply.this,android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.loanType));
+
+        loanTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spnType.setAdapter(loanTypeAdapter);
+
+        ArrayAdapter<String> loanDurationAdapter = new ArrayAdapter<String>(LoanApply.this,android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.loanDuration));
+
+        loanDurationAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spnDuration.setAdapter(loanDurationAdapter);
+
+        Intent intent = getIntent();
+        nic = intent.getStringExtra(MainActivity.NICOFHOLDER);
 
         btnApply.setOnClickListener(this);
     }
@@ -24,8 +62,33 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnLoanApply){
+            addLoan();
             Intent main = new Intent(this,MainActivity.class);
             startActivity(main);
         }
     }
+
+    private void addLoan(){
+        String loanType = spnType.getSelectedItem().toString();
+        double amount = Double.parseDouble(txtAmount.getText().toString());
+        String approvedDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        int duration = Integer.parseInt(spnDuration.getSelectedItem().toString());
+        double interestRate = Double.parseDouble(txtIntRate.getText().toString());
+        double monthAmount = Double.parseDouble(txtMonRate.getText().toString());
+
+        ArrayList<Integer> accNo = dbHelper.readLastPayBillID();
+        String lastID = accNo.get(0).toString();
+        if(lastID.equals("")){
+            id=12345;
+        }else{
+            int preAccNumber = Integer.parseInt(lastID);
+            id = preAccNumber+1;
+        }
+
+        if(dbHelper.addInfoToLoan(id,nic,loanType,amount,approvedDate,duration,interestRate,monthAmount))
+            Toast.makeText(getApplicationContext(),"Approved your Loan",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
+    }
+
 }

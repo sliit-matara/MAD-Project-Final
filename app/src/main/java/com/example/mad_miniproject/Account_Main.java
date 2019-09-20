@@ -9,7 +9,10 @@ import android.widget.Button;
 
 public class Account_Main extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String NIC_NUMBER = "com.Account.nic";
+
     private Button btnAccSummary,btnAccDetails,btnAccActivity;
+    public String nic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,9 @@ public class Account_Main extends AppCompatActivity implements View.OnClickListe
         this.btnAccActivity = (Button) findViewById(R.id.btnAccActivity);
         this.btnAccDetails = (Button) findViewById(R.id.btnAccDetails);
 
+        Intent intent = getIntent();
+        nic = intent.getStringExtra(MainActivity.NICOFHOLDER);
+
         btnAccSummary.setOnClickListener(this);
         btnAccActivity.setOnClickListener(this);
         btnAccDetails.setOnClickListener(this);
@@ -29,12 +35,15 @@ public class Account_Main extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(view.getId()==R.id.btnAccSummary){
             Intent accSum = new Intent(this,AccountSummary.class);
+            accSum.putExtra(NIC_NUMBER,nic);
             startActivity(accSum);
         }else if(view.getId()==R.id.btnAccActivity){
             Intent accActivity = new Intent(this,AccountActivity.class);
+            accActivity.putExtra(NIC_NUMBER,nic);
             startActivity(accActivity);
         }else if(view.getId()==R.id.btnAccDetails){
             Intent accDet = new Intent(this,AccountDetails.class);
+            accDet.putExtra(NIC_NUMBER,nic);
             startActivity(accDet);
         }
     }

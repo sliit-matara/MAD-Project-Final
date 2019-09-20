@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "BankSystem6.db";
+    public static final String DATABASE_NAME = "BankSystem7.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -72,7 +72,8 @@ public class DBHelper extends SQLiteOpenHelper {
                         BankMaster.Loan.COLUMN_NAME_AMOUNT+" REAL NOT NULL,"+
                         BankMaster.Loan.COLUMN_NAME_APPROVED_DATE+" TEXT NOT NULL,"+
                         BankMaster.Loan.COLUMN_NAME_DURATION+" INTEGER NOT NULL,"+
-                        BankMaster.Loan.COLUMN_NAME_INTEREST_RATE+" REAL)";
+                        BankMaster.Loan.COLUMN_NAME_INTEREST_RATE+" REAL," +
+                        BankMaster.Loan.COLUMN_NAME_PERMONTHRATE+" REAL NOT NULL)";
 
         String TRANSACTION_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.Transaction.TABLE_NAME+" ("+
@@ -87,17 +88,35 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+"("+ BankMaster.Login.COLUMN_NAME_USERNAME+", "+ BankMaster.Login.COLUMN_NAME_PASSWORD +")"+
                 "VALUES ('Admin','Bara%@&321')";
 
-        String MEMBER_INSERT_QUERY =
+        String INSERT_QUERY_MEMBER =
                 "INSERT INTO "+ BankMaster.AccountHolder.TABLE_NAME+" VALUES ('990291390V', 'Bojitha Mindula', '0775631456','1999-01-29','Galle','boji@gamil.com')";
 
-        String ACCOUNT_INSERT_QUERY =
-                "INSERT INTO "+ BankMaster.Account.TABLE_NAME+" VALUES (12345678,'Saving','2001-02-03','Single',250636.00,'Vishwa','Weligama')";
+        String INSERT_QUERY_ACCOUNT1 =
+                "INSERT INTO "+ BankMaster.Account.TABLE_NAME+" VALUES (123456789,'Saving','2001-02-03','Single',250636.00,'Vishwa','Weligama')";
 
-        String ACCOUNT_HOLDER_INSERT_QUERY =
-                "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',12345678)";
+        String INSERT_QUERY_ACCOUNT2=
+                "INSERT INTO "+ BankMaster.Account.TABLE_NAME+" VALUES (123456790,'Saving','2004-02-03','Single',250636.00,'Vishwa','Weligama')";
 
-        String LOGIN_USER_INSERT_QUERY =
+        String INSERT_QUERY_ACCOUNT_HOLDER1 =
+                "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',123456789)";
+
+        String INSERT_QUERY_ACCOUNT_HOLDER2 =
+                "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',123456790)";
+
+        String INSERT_QUERY_LOGIN_USER =
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+" VALUES ('Boji','Boji','990291390V')";
+
+        String INSERT_QUERY_MONEY_TRANSFER =
+                "INSERT INTO "+ BankMaster.MoneyTransfer.TABLE_NAME+" VALUES (1234567,123456789,123456790,2000.00,'2016-02-04 18:20:18')";
+
+        String INSERT_QUERY_BILL_PAYMENT =
+                "INSERT INTO "+ BankMaster.BillPayment.TABLE_NAME+" VALUES(12345678912,123456789,'Mobitel','0714500369',2000.00,'2017-10-20 12:12;12')";
+
+        String INSERT_QUERY_LOAN =
+                "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(12345,'990291390V','Student',200000.00,'2016-10-20',24,10,9167.00)";
+
+        String INSERT_QUERY_TRANSACTION =
+                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567891234,123456789,'2016-02-04',2000.00,0.0,250636.00)";
 
         db.execSQL(ACCOUNT_CREATE_QUERY);
         db.execSQL(ACCOUNTHOLDER_CREATE_QUERY);
@@ -108,10 +127,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(LOAN_CREATE_QUERY);
         db.execSQL(TRANSACTION_CREATE_QUERY);
         db.execSQL(ADMIN_INSERT_VALUE_QUERY);
-        db.execSQL(MEMBER_INSERT_QUERY);
-        db.execSQL(ACCOUNT_INSERT_QUERY);
-        db.execSQL(ACCOUNT_HOLDER_INSERT_QUERY);
-        db.execSQL(LOGIN_USER_INSERT_QUERY);
+        db.execSQL(INSERT_QUERY_MEMBER);
+        db.execSQL(INSERT_QUERY_ACCOUNT1);
+        db.execSQL(INSERT_QUERY_ACCOUNT2);
+        db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER1);
+        db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER2);
+        db.execSQL(INSERT_QUERY_LOGIN_USER);
+        db.execSQL(INSERT_QUERY_MONEY_TRANSFER);
+        db.execSQL(INSERT_QUERY_BILL_PAYMENT);
+        db.execSQL(INSERT_QUERY_LOAN);
+        db.execSQL(INSERT_QUERY_TRANSACTION);
     }
 
     @Override
@@ -226,7 +251,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean addInfoToLoan(int loanID, String nic,String type,double amount,String approvedDate,int duration,double intRate){
+    public boolean addInfoToLoan(int loanID, String nic,String type,double amount,String approvedDate,int duration,double intRate,double monthRate){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -237,6 +262,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(BankMaster.Loan.COLUMN_NAME_APPROVED_DATE,approvedDate);
         values.put(BankMaster.Loan.COLUMN_NAME_DURATION,duration);
         values.put(BankMaster.Loan.COLUMN_NAME_INTEREST_RATE,intRate);
+        values.put(BankMaster.Loan.COLUMN_NAME_PERMONTHRATE,monthRate);
 
 
         long newRowId = db.insert(BankMaster.Loan.TABLE_NAME,null,values);

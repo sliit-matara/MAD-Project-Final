@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class Account_Main extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String NIC_NUMBER = "com.Account.nic";
+    public static final String NIC_NUMBER = "com.Account.NIC";
 
     private Button btnAccSummary,btnAccDetails,btnAccActivity;
     public String nic;

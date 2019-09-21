@@ -27,7 +27,7 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
 
         dbHelper = new DBHelper(this);
 
-        spnFrom = findViewById(R.id.spnFrom);
+        spnFrom = findViewById(R.id.spnAccount);
         spnTo = findViewById(R.id.spnTo);
 
         Intent intent = getIntent();

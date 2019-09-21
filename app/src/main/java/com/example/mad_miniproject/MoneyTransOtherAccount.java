@@ -27,7 +27,7 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
 
         dbHelper = new DBHelper(this);
 
-        spnFrom = findViewById(R.id.spnFrom);
+        spnFrom = findViewById(R.id.spnAccount);
 
         Intent intent = getIntent();
         nic = intent.getStringExtra(MoneyTransMain.USERNIC);

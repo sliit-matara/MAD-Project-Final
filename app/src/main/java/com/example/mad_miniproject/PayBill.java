@@ -35,7 +35,7 @@ public class PayBill extends AppCompatActivity implements View.OnClickListener {
 
         this.btnNext = (Button) findViewById(R.id.btnNext);
         spnBiller = (Spinner) findViewById(R.id.spnBiller);
-        spnAccount = (Spinner) findViewById(R.id.spnFrom);
+        spnAccount = (Spinner) findViewById(R.id.spnAccount);
         erTxtBiller = (TextView) findViewById(R.id.erTxtSelBiller);
 
         Intent intent = getIntent();

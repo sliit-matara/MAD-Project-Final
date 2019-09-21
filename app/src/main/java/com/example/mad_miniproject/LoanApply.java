@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     private Button btnApply;
     DBHelper dbHelper;
     public Spinner spnType,spnDuration;
-    public EditText txtAmount,txtIntRate,txtMonRate;
+    public EditText txtAmount,txtIntRate;
     public String nic;
     public int id;
 
@@ -39,7 +40,6 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         spnDuration = findViewById(R.id.spnLoanDuration);
         txtAmount = findViewById(R.id.txtLoanAmount);
         txtIntRate = findViewById(R.id.txtIntRate);
-        txtMonRate = findViewById(R.id.txtMonthRate);
 
         ArrayAdapter<String> loanTypeAdapter = new ArrayAdapter<String>(LoanApply.this,android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.loanType));
@@ -56,6 +56,32 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         Intent intent = getIntent();
         nic = intent.getStringExtra(MainActivity.NICOFHOLDER);
 
+        spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String loanType = spnType.getSelectedItem().toString();
+                switch(loanType){
+                    case "Education Loan":
+                        txtIntRate.setText("5");
+                        break;
+                    case "Home Loan":
+                        txtIntRate.setText("10");
+                        break;
+                    case "Personal Loan":
+                        txtIntRate.setText("12");
+                        break;
+                    case "Business Loan":
+                        txtIntRate.setText("15");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         btnApply.setOnClickListener(this);
     }
 
@@ -63,8 +89,6 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if(view.getId()==R.id.btnLoanApply){
             addLoan();
-            Intent main = new Intent(this,MainActivity.class);
-            startActivity(main);
         }
     }
 
@@ -72,12 +96,12 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         String loanType = spnType.getSelectedItem().toString();
         double amount = Double.parseDouble(txtAmount.getText().toString());
         String approvedDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        int duration = Integer.parseInt(spnDuration.getSelectedItem().toString());
+        String firstTwo = spnDuration.getSelectedItem().toString().substring(0,2);
+        int duration = Integer.parseInt(firstTwo);
         double interestRate = Double.parseDouble(txtIntRate.getText().toString());
-        double monthAmount = Double.parseDouble(txtMonRate.getText().toString());
 
-        ArrayList<Integer> accNo = dbHelper.readLastPayBillID();
-        String lastID = accNo.get(0).toString();
+        ArrayList<Integer> loan = dbHelper.readLastLoanID();
+        String lastID = loan.get(0).toString();
         if(lastID.equals("")){
             id=12345;
         }else{
@@ -85,9 +109,11 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
             id = preAccNumber+1;
         }
 
-        if(dbHelper.addInfoToLoan(id,nic,loanType,amount,approvedDate,duration,interestRate,monthAmount))
-            Toast.makeText(getApplicationContext(),"Approved your Loan",Toast.LENGTH_LONG).show();
-        else
+        if(dbHelper.addInfoToLoan(id,nic,loanType,amount,approvedDate,duration,interestRate)) {
+            Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
+            Intent main = new Intent(this, MainActivity.class);
+            startActivity(main);
+        }else
             Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
     }
 

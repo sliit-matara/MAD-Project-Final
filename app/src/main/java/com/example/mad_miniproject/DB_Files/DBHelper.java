@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "BankSystem9.db";
+    public static final String DATABASE_NAME = "Bank1.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -78,6 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "CREATE TABLE "+ BankMaster.Transaction.TABLE_NAME+" ("+
                         BankMaster.Transaction.COLUMN_NAME_TRANSACTIONID+" INTEGER PRIMARY KEY,"+
                         BankMaster.Transaction.COLUMN_NAME_ACCOUNTNUMBER+" INTEGER REFERENCES "+ BankMaster.Account.TABLE_NAME+"("+ BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+") NOT NULL,"+
+                        BankMaster.Transaction.COLUMN_NAME_MODE+" TEXT,"+
                         BankMaster.Transaction.COLUMN_NAME_TRANSACTIONDATE+" TEXT NOT NULL,"+
                         BankMaster.Transaction.COLUMN_NAME_DEBIT+" REAL,"+
                         BankMaster.Transaction.COLUMN_NAME_CREDIT+" REAL,"+
@@ -106,16 +107,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+" VALUES ('Boji','Boji','990291390V')";
 
         String INSERT_QUERY_MONEY_TRANSFER =
-                "INSERT INTO "+ BankMaster.MoneyTransfer.TABLE_NAME+" VALUES (1234567,123456789,123456790,2000.00,'2016-02-04 18:20:18')";
+                "INSERT INTO "+ BankMaster.MoneyTransfer.TABLE_NAME+" VALUES (12345,123456789,123456790,2000.00,'2016-02-04 18:20:18')";
 
         String INSERT_QUERY_BILL_PAYMENT =
-                "INSERT INTO "+ BankMaster.BillPayment.TABLE_NAME+" VALUES(12345678912,123456789,'Mobitel','0714500369',2000.00,'2017-10-20 12:12;12')";
+                "INSERT INTO "+ BankMaster.BillPayment.TABLE_NAME+" VALUES(1234567,123456789,'Mobitel','0714500369',2000.00,'2017-10-20 12:12;12')";
 
         String INSERT_QUERY_LOAN =
-                "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(12345,'990291390V','Student',200000.00,'2016-10-20',24,10)";
+                "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(123,'990291390V','Student',200000.00,'2016-10-20',24,10)";
 
         String INSERT_QUERY_TRANSACTION =
-                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567891234,123456789,'2016-02-04',2000.00,0.0,250636.00)";
+                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";
 
         db.execSQL(ACCOUNT_CREATE_QUERY);
         db.execSQL(ACCOUNTHOLDER_CREATE_QUERY);
@@ -198,7 +199,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean addInfoToMoneyTransfer(int tranID, int accNo,int toAccount,double amount,String transMode,String dateTime){
+    public boolean addInfoToMoneyTransfer(int tranID, int accNo,int toAccount,double amount,String dateTime){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -271,13 +272,14 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean addInfoToTransaction(int transAcID, int accountNo, String transactiondate, double debit, double credit, double balance){
+    public boolean addInfoToTransaction(int transAcID, int accountNo,String mode, String transactionDate, double debit, double credit, double balance){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(BankMaster.Transaction.COLUMN_NAME_TRANSACTIONID,transAcID);
         values.put(BankMaster.Transaction.COLUMN_NAME_ACCOUNTNUMBER,accountNo);
-        values.put(BankMaster.Transaction.COLUMN_NAME_TRANSACTIONDATE,transactiondate);
+        values.put(BankMaster.Transaction.COLUMN_NAME_MODE,mode);
+        values.put(BankMaster.Transaction.COLUMN_NAME_TRANSACTIONDATE,transactionDate);
         values.put(BankMaster.Transaction.COLUMN_NAME_DEBIT,debit);
         values.put(BankMaster.Transaction.COLUMN_NAME_CREDIT,credit);
         values.put(BankMaster.Transaction.COLUMN_NAME_BALANCE,balance);
@@ -509,5 +511,4 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return balances;
     }
-
 }

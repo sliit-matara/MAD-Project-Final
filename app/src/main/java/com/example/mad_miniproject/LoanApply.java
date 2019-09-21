@@ -103,7 +103,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         ArrayList<Integer> loan = dbHelper.readLastLoanID();
         String lastID = loan.get(0).toString();
         if(lastID.equals("")){
-            id=12345;
+            id=123;
         }else{
             int preAccNumber = Integer.parseInt(lastID);
             id = preAccNumber+1;

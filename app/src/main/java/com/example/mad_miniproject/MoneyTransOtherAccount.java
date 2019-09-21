@@ -7,18 +7,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class MoneyTransOtherAccount extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTransfer;
     DBHelper dbHelper;
     public Spinner spnFrom;
+    EditText txtAmount,txtTo;
     private String nic;
+    int id,transID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,8 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
         dbHelper = new DBHelper(this);
 
         spnFrom = findViewById(R.id.spnAccount);
+        txtTo = findViewById(R.id.txtAccNo);
+        txtAmount = findViewById(R.id.txtAmount);
 
         Intent intent = getIntent();
         nic = intent.getStringExtra(MoneyTransMain.USERNIC);
@@ -50,8 +59,57 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btnTransfer){
-            Intent success = new Intent(this,MoneyTransSuccess.class);
-            startActivity(success);
+            addMoneyTransfer();
+            addTransaction();
         }
+    }
+
+    private void addMoneyTransfer(){
+        String stFromAccNo = spnFrom.getSelectedItem().toString();
+        String stToAccNo = txtTo.getText().toString();
+        String stAmount = txtAmount.getText().toString();
+
+        int FromAccNo = Integer.parseInt(stFromAccNo);
+        int ToAccNo = Integer.parseInt(stToAccNo);
+        double amount = Double.parseDouble(stAmount);
+
+        ArrayList<Integer> moneyTrans = dbHelper.readLastTransferID();
+        String lastID = moneyTrans.get(0).toString();
+        if(lastID.equals("")){
+            id=12345;
+        }else{
+            int preAccNumber = Integer.parseInt(lastID);
+            id = preAccNumber+1;
+        }
+
+        String approvedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        if(dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate)){
+            Toast.makeText(getApplicationContext(),"Money Transfer Registered!!!",Toast.LENGTH_LONG).show();
+            Intent main = new Intent(this,MainActivity.class);
+            startActivity(main);
+        }else
+            Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();
+    }
+
+    private void addTransaction(){
+        String stFromAccNo = spnFrom.getSelectedItem().toString();
+        String stAmount = txtAmount.getText().toString();
+
+        int FromAccNo = Integer.parseInt(stFromAccNo);
+        double amount = Double.parseDouble(stAmount);
+
+        String transDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        ArrayList<Integer> transaction = dbHelper.readLastTransactionID();
+        String lastID = transaction.get(0).toString();
+        if(lastID.equals("")){
+            transID=1234567890;
+        }else{
+            int preAccNumber = Integer.parseInt(lastID);
+            transID = preAccNumber+1;
+        }
+
+        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,25);
     }
 }

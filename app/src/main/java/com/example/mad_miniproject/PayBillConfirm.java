@@ -21,7 +21,7 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
     protected Button btnCon;
     private TextView accNo,biller,billerAccNo,amount;
     DBHelper dbHelper;
-    int payID;
+    int payID,transID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view.getId()==R.id.btnConfrim){
             addPayBill();
+            addTransaction();
         }
     }
 
@@ -64,7 +65,7 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
         ArrayList<Integer> accNo = dbHelper.readLastPayBillID();
         String lastAcc = accNo.get(0).toString();
         if(lastAcc.equals("")){
-            payID=12345;
+            payID=1234567;
         }else{
             int preAccNumber = Integer.parseInt(lastAcc);
             payID = preAccNumber+1;
@@ -77,5 +78,26 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
         } else
             Toast.makeText(getApplicationContext(),"Not Inserted!!!",Toast.LENGTH_LONG).show();
 
+    }
+
+    private void addTransaction(){
+        String stAccNo = accNo.getText().toString();
+        String stAmount = amount.getText().toString();
+
+        int accNo = Integer.parseInt(stAccNo);
+        double amount = Double.parseDouble(stAmount);
+
+        String paidDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        ArrayList<Integer> transaction = dbHelper.readLastTransactionID();
+        String lastID = transaction.get(0).toString();
+        if(lastID.equals("")){
+            transID=1234567890;
+        }else{
+            int preAccNumber = Integer.parseInt(lastID);
+            transID = preAccNumber+1;
+        }
+
+        dbHelper.addInfoToTransaction(transID,accNo,"Bill Payment",paidDate,amount,0,25);
     }
 }

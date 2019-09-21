@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
@@ -21,6 +22,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button btnSignIn;
     private EditText txtUN,txtPwd;
     DBHelper dbHelper;
+    TextView forgetUN,forgetPwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +33,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         txtUN = (EditText) findViewById(R.id.txtUserName);
         txtPwd = (EditText) findViewById(R.id.txtPassword);
+        forgetUN = findViewById(R.id.forUN);
+        forgetPwd = findViewById(R.id.forPwd);
 
         btnSignIn.setOnClickListener(this);
+        forgetUN.setOnClickListener(this);
+        forgetPwd.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnSignIn){
             readUNPWD();
+        }else if(view.getId()==R.id.forUN){
+
+        }else if(view.getId()==R.id.forPwd){
+            Intent forPwd = new Intent(this,ForgetPassword.class);
+            startActivity(forPwd);
         }
     }
 

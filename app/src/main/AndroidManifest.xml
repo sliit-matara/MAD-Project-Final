@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoanApply"></activity>
+        <activity android:name=".NewPassword"></activity>
+        <activity android:name=".ForgetPassword" />
+        <activity android:name=".LoanApply" />
         <activity android:name=".MoneyTransSuccess" />
         <activity android:name=".MoneyTransOtherAccount" />
         <activity android:name=".MoneyTransOwnAccount" />
@@ -25,15 +27,19 @@
         <activity android:name=".PayBillConfirm" />
         <activity android:name=".PayBillVerify" />
         <activity android:name=".PayBill" />
-        <activity android:name=".AccountJoined"
+        <activity
+            android:name=".AccountJoined"
             android:parentActivityName=".AccountAdd">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AccountAdd"></meta-data>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountAdd" />
         </activity>
-        <activity android:name=".AccountSingle"
+        <activity
+            android:name=".AccountSingle"
             android:parentActivityName=".AccountAdd">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AccountAdd"></meta-data>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountAdd" />
         </activity>
         <activity android:name=".UserAccountAdd" />
         <activity android:name=".MemberAdd" />

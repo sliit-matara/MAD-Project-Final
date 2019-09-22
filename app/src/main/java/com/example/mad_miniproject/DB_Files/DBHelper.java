@@ -104,7 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',123456790)";
 
         String INSERT_QUERY_LOGIN_USER =
-                "INSERT INTO "+ BankMaster.Login.TABLE_NAME+" VALUES ('Boji','Boji','990291390V')";
+                "INSERT INTO "+ BankMaster.Login.TABLE_NAME+" VALUES ('Bojitha','Bojitha','990291390V')";
 
         String INSERT_QUERY_MONEY_TRANSFER =
                 "INSERT INTO "+ BankMaster.MoneyTransfer.TABLE_NAME+" VALUES (12345,123456789,123456790,2000.00,'2016-02-04 18:20:18')";
@@ -511,4 +511,22 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return balances;
     }
+
+    public void updateBalance(String accNo,double amount){
+        SQLiteDatabase db = getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BankMaster.Account.COLUMN_NAME_BALANCE,amount);
+
+        String selection = BankMaster.Account.COLUMN_NAME_ACCOUNTNUMBER+" LIKE ?";
+        String[] selectionArgs = {accNo};
+
+        int count = db.update(
+                BankMaster.Account.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
 }

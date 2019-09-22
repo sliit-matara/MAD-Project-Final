@@ -22,6 +22,8 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
     private TextView accNo,biller,billerAccNo,amount;
     DBHelper dbHelper;
     int payID,transID;
+    ArrayList<Double> balanceArr;
+    double balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,10 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view.getId()==R.id.btnConfrim){
             addPayBill();
+            balanceArr = dbHelper.showBalance(accNo.getText().toString());
+            balance = Double.parseDouble(balanceArr.get(0).toString());
+            balance=balance-Double.parseDouble(amount.getText().toString());
+            dbHelper.updateBalance(accNo.getText().toString(),balance);
             addTransaction();
         }
     }
@@ -98,6 +104,6 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
             transID = preAccNumber+1;
         }
 
-        dbHelper.addInfoToTransaction(transID,accNo,"Bill Payment",paidDate,amount,0,25);
+        dbHelper.addInfoToTransaction(transID,accNo,"Bill Payment",paidDate,amount,0,balance);
     }
 }

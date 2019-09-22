@@ -26,6 +26,8 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
     public Spinner spnFrom,spnTo;
     EditText txtAmount;
     int id,transID;
+    ArrayList<Double> balanceArr,balanceArrTo;
+    double balance,balanceTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,17 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         if(view.getId()==R.id.btnTransfer){
             addMoneyTransfer();
+
+            balanceArr = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
+            balance = Double.parseDouble(balanceArr.get(0).toString());
+            balance=balance-Double.parseDouble(txtAmount.getText().toString());
+            dbHelper.updateBalance(spnFrom.getSelectedItem().toString(),balance);
+
+            balanceArrTo = dbHelper.showBalance(spnTo.getSelectedItem().toString());
+            balanceTo = Double.parseDouble(balanceArrTo.get(0).toString());
+            balanceTo = balanceTo+Double.parseDouble(txtAmount.getText().toString());
+            dbHelper.updateBalance(spnTo.getSelectedItem().toString(),balanceTo);
+
             addTransaction();
         }
     }

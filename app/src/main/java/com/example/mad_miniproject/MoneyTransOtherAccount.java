@@ -26,6 +26,8 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
     EditText txtAmount,txtTo;
     private String nic;
     int id,transID;
+    ArrayList<Double> balanceArr,balanceArrTo;
+    double balance,balanceTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
     public void onClick(View view) {
         if(view.getId() == R.id.btnTransfer){
             addMoneyTransfer();
+            updateTransfer();
             addTransaction();
         }
     }
@@ -110,6 +113,18 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
             transID = preAccNumber+1;
         }
 
-        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,25);
+        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance);
+    }
+
+    private void updateTransfer(){
+        balanceArr = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
+        balance = Double.parseDouble(balanceArr.get(0).toString());
+        balance=balance-Double.parseDouble(txtAmount.getText().toString());
+        dbHelper.updateBalance(spnFrom.getSelectedItem().toString(),balance);
+
+        balanceArrTo = dbHelper.showBalance(txtTo.getText().toString());
+        balanceTo = Double.parseDouble(balanceArrTo.get(0).toString());
+        balanceTo = balanceTo+Double.parseDouble(txtAmount.getText().toString());
+        dbHelper.updateBalance(txtTo.getText().toString(),balanceTo);
     }
 }

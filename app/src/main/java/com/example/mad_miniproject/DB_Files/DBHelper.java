@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Bank1.db";
+    public static final String DATABASE_NAME = "Bank2.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -529,4 +529,54 @@ public class DBHelper extends SQLiteOpenHelper {
         );
     }
 
+    public ArrayList<String> getUNMobile(String username,String mobile){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT l.username FROM login l,accountHolder a WHERE a.nic=l.nic AND l.username=? AND a.mobileNo=?";
+        Cursor cursor = db.rawQuery(query,new String[]{username,mobile});
+
+        ArrayList<String> uns = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            String un = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_USERNAME));
+
+            uns.add(un);
+        }
+        cursor.close();
+        return uns;
+    }
+
+    public void changePwd (String pwd,String un){
+        SQLiteDatabase db = getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BankMaster.Login.COLUMN_NAME_PASSWORD,pwd);
+
+        String selection = BankMaster.Login.COLUMN_NAME_USERNAME+" LIKE ?";
+        String[] selectionArgs = {un};
+
+        int count = db.update(
+                BankMaster.Login.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+    public ArrayList<String> checkPassword(String un){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT password FROM login WHERE username=?";
+        Cursor cursor = db.rawQuery(query,new String[]{un});
+
+        ArrayList<String> passwords = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            String pwd = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_PASSWORD));
+
+            passwords.add(pwd);
+        }
+        cursor.close();
+        return passwords;
+    }
 }

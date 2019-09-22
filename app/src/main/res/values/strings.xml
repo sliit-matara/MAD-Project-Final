@@ -32,6 +32,8 @@
     <string name="btnDone">Done</string>
     <string name="applay">Apply</string>
     <string name="change">Change</string>
+    <string name="btnLogout">Logout</string>
+    <string name="btnChanePwd">Change Password</string>
 
     <!--Array List-->
     <string-array name="accType">

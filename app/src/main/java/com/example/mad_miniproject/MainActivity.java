@@ -15,10 +15,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String NICOFHOLDER = "com.example.HOLDERNIC";
+    public static final String UNOFHODER = "com.example.HOLDERUN";
 
-    private Button btnAccount,btnLoan,btnMoneyTrans,btnBillPay;
-    public String nic;
-    private TextView txtHolderNIC;
+    Button btnAccount,btnLoan,btnMoneyTrans,btnBillPay;
+    public String nic,un;
+    TextView txtHolderNIC;
     DBHelper dbHelper;
 
     @Override
@@ -39,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBillPay.setOnClickListener(this);
         btnMoneyTrans.setOnClickListener(this);
         btnLoan.setOnClickListener(this);
+        txtHolderNIC.setOnClickListener(this);
 
         Intent intent = getIntent();
         nic = intent.getStringExtra(Login.HOLDER_NIC);
+        un = intent.getStringExtra(Login.HOLDER_UN);
 
         ArrayList<String> name = new ArrayList<>();
         name = dbHelper.getUserName(nic);
@@ -67,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent loan = new Intent(this,LoanApply.class);
             loan.putExtra(NICOFHOLDER,nic);
             startActivity(loan);
+        }else if(view.getId()==R.id.txtHolderNIC){
+            Intent profile = new Intent(this,UserProfile.class);
+            profile.putExtra(UNOFHODER,un);
+            startActivity(profile);
         }
     }
 }

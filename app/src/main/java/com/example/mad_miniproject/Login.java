@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public static final String HOLDER_NIC = "com.example.nic.HOLDER_NIC";
+    public static final String HOLDER_UN = "com.example.un.HOLDER_UN";
 
     private Button btnSignIn;
     private EditText txtUN,txtPwd;
@@ -61,18 +62,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         list = dbHelper.getUnPwd(userName,password);
 
-        if((list.get(0).toString().equals(userName))&&(list.get(1).toString().equals(password))){
+        if(list.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Username or Password wrong!!!",Toast.LENGTH_LONG).show();
+        }else if(list.get(0).equals("Admin")){
             Toast.makeText(getApplicationContext(),"You are successfully logged!!!",Toast.LENGTH_LONG).show();
-            if(list.get(0).toString().equals("Admin")){
-                Intent adminMain = new Intent(this,MainAdmin.class);
-                startActivity(adminMain);
-            }else {
-                Intent main = new Intent(this, MainActivity.class);
-                main.putExtra(HOLDER_NIC,list.get(2));
-                startActivity(main);
-            }
-        }else if((!list.get(0).toString().equals(userName))||(!list.get(1).toString().equals(password))){
-            Toast.makeText(getApplicationContext(),"Incorrect username or password!!!",Toast.LENGTH_LONG).show();
+            Intent adminMain = new Intent(this,MainAdmin.class);
+            startActivity(adminMain);
+        }else{
+            Toast.makeText(getApplicationContext(),"You are successfully logged!!!",Toast.LENGTH_LONG).show();
+            Intent main = new Intent(this, MainActivity.class);
+            main.putExtra(HOLDER_UN,list.get(0));
+            main.putExtra(HOLDER_NIC,list.get(2));
+            startActivity(main);
         }
     }
 }

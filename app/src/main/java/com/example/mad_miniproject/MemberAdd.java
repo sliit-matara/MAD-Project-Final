@@ -22,10 +22,10 @@ import java.util.regex.Pattern;
 
 public class MemberAdd extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText txtName,txtNIC,txtMobile,txtAddress,txtEmail;
-    private Button btnAdd;
-    private TextView txtDOB,erTxtName,erTxtNIC,erTxtMobile,erTxtDOB,erTxtEmail;
-    private DatePickerDialog.OnDateSetListener setListener;
+    EditText txtName,txtNIC,txtMobile,txtAddress,txtEmail;
+    Button btnAdd;
+    TextView txtDOB,erTxtName,erTxtNIC,erTxtMobile,erTxtDOB,erTxtEmail;
+    DatePickerDialog.OnDateSetListener setListener;
     DBHelper dbHelper;
 
     @Override
@@ -105,7 +105,7 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
                 erTxtEmail.setText("");
             }else if((txtMobile.equals(""))||(txtMobile.getText().toString().length()!=10)) {
                 erTxtMobile.setTextColor(Color.RED);
-                erTxtMobile.setText("Enter valid Mobile No");
+                erTxtMobile.setText("Enter valid Mobile No(10 digits)");
                 erTxtName.setText("");
                 erTxtNIC.setText("");
                 erTxtDOB.setText("");
@@ -125,14 +125,14 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
                 erTxtDOB.setText("");
                 erTxtNIC.setText("");
             }else{
-                addMemeber();
+                addMember();
                 Intent adminMain = new Intent(this,MainAdmin.class);
                 startActivity(adminMain);
             }
         }
     }
 
-    private void addMemeber() {
+    private void addMember() {
         String nic = txtNIC.getText().toString();
         String name = txtName.getText().toString();
         String mobileNo = txtMobile.getText().toString();
@@ -143,7 +143,7 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
         if (dbHelper.addInfoToAccountHolder(nic,name,mobileNo,dob,address,email)) {
             Toast.makeText(getApplicationContext(), "Inserted a new Account Holder!", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Connot Insert the Account Holder!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Cannot Insert the Account Holder!", Toast.LENGTH_LONG).show();
         }
     }
 }

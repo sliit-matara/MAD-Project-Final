@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainAdmin extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnAddAcc,btnAddUserAcc,btnAddMem;
+    Button btnAddAcc,btnAddUserAcc,btnAddMem,btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +19,12 @@ public class MainAdmin extends AppCompatActivity implements View.OnClickListener
         btnAddAcc = findViewById(R.id.btnAddAccount);
         btnAddMem = findViewById(R.id.btnAddMember);
         btnAddUserAcc = findViewById(R.id.btnAddUserAcc);
+        btnLogout = findViewById(R.id.btnLogout);
 
         btnAddAcc.setOnClickListener(this);
         btnAddMem.setOnClickListener(this);
         btnAddUserAcc.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class MainAdmin extends AppCompatActivity implements View.OnClickListener
         }else if(view.getId()==R.id.btnAddUserAcc){
             Intent addUserAccount = new Intent(this,UserAccountAdd.class);
             startActivity(addUserAccount);
+        }else if(view.getId() == R.id.btnLogout){
+            Intent logout = new Intent(this,Login.class);
+            startActivity(logout);
         }
     }
 }

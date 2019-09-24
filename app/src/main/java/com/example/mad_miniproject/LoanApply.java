@@ -33,6 +33,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_apply);
 
+
         dbHelper = new DBHelper(this);
 
         btnApply = (Button) findViewById(R.id.btnLoanApply);
@@ -89,6 +90,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if(view.getId()==R.id.btnLoanApply){
             addLoan();
+
         }
     }
 
@@ -113,6 +115,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
             Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
             Intent main = new Intent(this, MainActivity.class);
             startActivity(main);
+
         }else
             Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
     }

@@ -1,6 +1,5 @@
 package com.example.mad_miniproject;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,10 +19,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public static final String HOLDER_NIC = "com.example.nic.HOLDER_NIC";
     public static final String HOLDER_UN = "com.example.un.HOLDER_UN";
 
-    private Button btnSignIn;
+    Button btnSignIn;
     private EditText txtUN,txtPwd;
     DBHelper dbHelper;
-    TextView forgetUN,forgetPwd;
+    TextView forgetPwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +34,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         txtUN = (EditText) findViewById(R.id.txtUserName);
         txtPwd = (EditText) findViewById(R.id.txtPassword);
-        forgetUN = findViewById(R.id.forUN);
         forgetPwd = findViewById(R.id.forPwd);
 
         btnSignIn.setOnClickListener(this);
-        forgetUN.setOnClickListener(this);
         forgetPwd.setOnClickListener(this);
     }
 
@@ -46,8 +44,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         if(view.getId()==R.id.btnSignIn){
             readUNPWD();
-        }else if(view.getId()==R.id.forUN){
-
         }else if(view.getId()==R.id.forPwd){
             Intent forPwd = new Intent(this,ForgetPassword.class);
             startActivity(forPwd);

@@ -11,7 +11,7 @@ public class MoneyTransMain extends AppCompatActivity implements View.OnClickLis
 
     public static final String USERNIC = "com.example.nic";
 
-    private Button ownAcc,otherAcc;
+    Button ownAcc,otherAcc;
     String nic;
 
     @Override

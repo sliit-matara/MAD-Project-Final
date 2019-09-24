@@ -52,11 +52,11 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view.getId()==R.id.btnConfrim){
             addPayBill();
-            balanceArr = dbHelper.showBalance(accNo.getText().toString());
-            balance = Double.parseDouble(balanceArr.get(0).toString());
-            balance=balance-Double.parseDouble(amount.getText().toString());
-            dbHelper.updateBalance(accNo.getText().toString(),balance);
+            updateBalance();
             addTransaction();
+            Toast.makeText(getApplicationContext(), "Successfully Inserted!!!", Toast.LENGTH_LONG).show();
+            Intent main = new Intent(PayBillConfirm.this, MainActivity.class);
+            startActivity(main);
         }
     }
 
@@ -69,20 +69,16 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
         String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         ArrayList<Integer> accNo = dbHelper.readLastPayBillID();
-        String lastAcc = accNo.get(0).toString();
-        if(lastAcc.equals("")){
+        if(accNo.isEmpty()){
             payID=1234567;
         }else{
-            int preAccNumber = Integer.parseInt(lastAcc);
+            int preAccNumber = accNo.get(0);
             payID = preAccNumber+1;
         }
 
-        if(dbHelper.addInfoToBillPayment(payID,accNumber,billerName,billAccountNo,billAmount,currentDate)) {
-            Toast.makeText(getApplicationContext(), "Successfully Inserted!!!", Toast.LENGTH_LONG).show();
-            Intent main = new Intent(PayBillConfirm.this, MainActivity.class);
-            startActivity(main);
-        } else
-            Toast.makeText(getApplicationContext(),"Not Inserted!!!",Toast.LENGTH_LONG).show();
+        if(!dbHelper.addInfoToBillPayment(payID,accNumber,billerName,billAccountNo,billAmount,currentDate)) {
+            Toast.makeText(getApplicationContext(),"Cannot",Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -96,14 +92,22 @@ public class PayBillConfirm extends AppCompatActivity implements View.OnClickLis
         String paidDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         ArrayList<Integer> transaction = dbHelper.readLastTransactionID();
-        String lastID = transaction.get(0).toString();
-        if(lastID.equals("")){
+        if(transaction.isEmpty()){
             transID=1234567890;
         }else{
-            int preAccNumber = Integer.parseInt(lastID);
+            int preAccNumber = transaction.get(0);
             transID = preAccNumber+1;
         }
 
         dbHelper.addInfoToTransaction(transID,accNo,"Bill Payment",paidDate,amount,0,balance);
+    }
+
+    private void updateBalance(){
+        String accountNo = accNo.getText().toString();
+        balanceArr = dbHelper.showBalance(accountNo);
+        balance = balanceArr.get(0);
+        double billAmount = Double.parseDouble(amount.getText().toString());
+        balance=balance-billAmount;
+        dbHelper.updateBalance(accountNo,balance);
     }
 }

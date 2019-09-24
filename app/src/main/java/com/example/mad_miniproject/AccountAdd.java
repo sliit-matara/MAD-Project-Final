@@ -150,11 +150,10 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
         String branch = txtBranch.getText().toString();
 
         ArrayList<Integer> accNo = dbHelper.readLastAccountNumber();
-        String lastAcc = accNo.get(0).toString();
-        if(lastAcc.equals("")){
-            accountNumber=12345678;
+        if(accNo.isEmpty()){
+            accountNumber=123456789;
         }else{
-            int preAccNumber = Integer.parseInt(lastAcc);
+            int preAccNumber = accNo.get(0);
             accountNumber = preAccNumber+1;
         }
 

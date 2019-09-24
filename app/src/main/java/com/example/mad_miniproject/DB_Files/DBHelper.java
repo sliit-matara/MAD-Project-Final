@@ -88,7 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+"("+ BankMaster.Login.COLUMN_NAME_USERNAME+", "+ BankMaster.Login.COLUMN_NAME_PASSWORD +")"+
                 "VALUES ('Admin','Bara%@&321')";
 
-        /*String INSERT_QUERY_MEMBER =
+        String INSERT_QUERY_MEMBER =
                 "INSERT INTO "+ BankMaster.AccountHolder.TABLE_NAME+" VALUES ('990291390V', 'Bojitha Mindula', '0775631456','1999-01-29','Galle','boji@gamil.com')";
 
         String INSERT_QUERY_ACCOUNT1 =
@@ -116,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(123,'990291390V','Student',200000.00,'2016-10-20',24,10)";
 
         String INSERT_QUERY_TRANSACTION =
-                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";*/
+                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";
 
         db.execSQL(ACCOUNT_CREATE_QUERY);
         db.execSQL(ACCOUNTHOLDER_CREATE_QUERY);
@@ -127,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(LOAN_CREATE_QUERY);
         db.execSQL(TRANSACTION_CREATE_QUERY);
         db.execSQL(ADMIN_INSERT_VALUE_QUERY);
-        /*db.execSQL(INSERT_QUERY_MEMBER);
+        db.execSQL(INSERT_QUERY_MEMBER);
         db.execSQL(INSERT_QUERY_ACCOUNT1);
         db.execSQL(INSERT_QUERY_ACCOUNT2);
         db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER1);
@@ -136,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(INSERT_QUERY_MONEY_TRANSFER);
         db.execSQL(INSERT_QUERY_BILL_PAYMENT);
         db.execSQL(INSERT_QUERY_LOAN);
-        db.execSQL(INSERT_QUERY_TRANSACTION);*/
+        db.execSQL(INSERT_QUERY_TRANSACTION);
     }
 
     @Override

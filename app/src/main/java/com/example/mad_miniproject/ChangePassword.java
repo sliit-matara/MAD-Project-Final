@@ -56,18 +56,18 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean checkCurPwd(){
+        ArrayList<String> pwd = dbHelper.checkPassword(un);
         String currentPwd = curPwd.getText().toString();
 
-        ArrayList<String> pwd;
-        pwd = dbHelper.checkPassword(un);
-
-        if(currentPwd.equals(pwd.get(0))){
-            errorCurPwd.setText("");
-            return true;
-        }else {
+        if(!pwd.get(0).equals(currentPwd)||currentPwd.equals("")){
             errorCurPwd.setTextColor(Color.RED);
             errorCurPwd.setText("Invalid Current Password!!!");
+            errorNewPwd.setText("");
+            errorConPwd.setText("");
             return false;
+        }else {
+            errorCurPwd.setText("");
+            return true;
         }
     }
 
@@ -75,10 +75,25 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         String newPassword = newPwd.getText().toString();
         String confirmPassword = newConPwd.getText().toString();
 
-        if (newPassword.equals(confirmPassword)) {
+        if(newPassword.equals("")){
+            errorNewPwd.setTextColor(Color.RED);
+            errorNewPwd.setText("Enter new password");
+            errorCurPwd.setText("");
+            errorConPwd.setText("");
+            return false;
+        }else if (confirmPassword.equals("")){
+            errorConPwd.setTextColor(Color.RED);
+            errorConPwd.setText("Enter confirm password");
+            errorCurPwd.setText("");
+            errorNewPwd.setText("");
+            return false;
+        }else if (newPassword.equals(confirmPassword)) {
             return true;
-        } else {
-            Toast.makeText(getApplicationContext(), "New passwords does not match!!!", Toast.LENGTH_LONG).show();
+        }else {
+            errorConPwd.setTextColor(Color.RED);
+            errorConPwd.setText("Passwords does not match");
+            errorCurPwd.setText("");
+            errorNewPwd.setText("");
             return false;
         }
     }

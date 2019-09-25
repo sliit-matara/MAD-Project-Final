@@ -3,12 +3,14 @@ package com.example.mad_miniproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
@@ -28,6 +30,7 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
     int id,transID;
     ArrayList<Double> balanceArr,balanceArrTo;
     double balance,balanceTo;
+    TextView txtShowBalance,errorAmount,errorFrom,errorTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +42,15 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
         spnFrom = findViewById(R.id.spnAccount);
         spnTo = findViewById(R.id.spnTo);
         txtAmount = findViewById(R.id.txtAmount);
+        txtShowBalance = findViewById(R.id.txtShowBalance);
+        errorAmount = findViewById(R.id.erTxtAmount);
+        errorFrom = findViewById(R.id.erTxtAccNo);
+        errorTo = findViewById(R.id.erTxtTo);
 
         Intent intent = getIntent();
         nic = intent.getStringExtra(MoneyTransMain.USERNIC);
 
-        ArrayList<Integer> accNumbers =new ArrayList<>();
+        ArrayList<Integer> accNumbers;
 
         accNumbers = dbHelper.getAccount(nic);
 
@@ -57,28 +64,48 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
         btnTransfer = (Button) findViewById(R.id.btnTransfer);
 
         btnTransfer.setOnClickListener(this);
+        txtShowBalance.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnTransfer){
-            addMoneyTransfer();
-
-            balanceArr = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
-            balance = Double.parseDouble(balanceArr.get(0).toString());
-            balance=balance-Double.parseDouble(txtAmount.getText().toString());
-            dbHelper.updateBalance(spnFrom.getSelectedItem().toString(),balance);
-
-            balanceArrTo = dbHelper.showBalance(spnTo.getSelectedItem().toString());
-            balanceTo = Double.parseDouble(balanceArrTo.get(0).toString());
-            balanceTo = balanceTo+Double.parseDouble(txtAmount.getText().toString());
-            dbHelper.updateBalance(spnTo.getSelectedItem().toString(),balanceTo);
-
-            addTransaction();
+            ArrayList<Double> balances = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
+            String fromAccount = spnFrom.getSelectedItem().toString();
+            String toAccount = spnTo.getSelectedItem().toString();
+            if(fromAccount.equals(toAccount)) {
+                errorFrom.setTextColor(Color.RED);
+                errorTo.setTextColor(Color.RED);
+                errorFrom.setText("Account number cannot be same");
+                errorTo.setText("Account number cannot be same");
+                errorAmount.setText("");
+            }else if(txtAmount.getText().toString().equals("")){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Enter the amount");
+                errorFrom.setText("");
+                errorTo.setText("");
+            }else if(balances.get(0)<Integer.parseInt(txtAmount.getText().toString())){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Amount exceeds from balance");
+                errorFrom.setText("");
+                errorTo.setText("");
+            }else {
+                if(addMoneyTransfer()){
+                    updateBalance();
+                    addTransaction();
+                    Toast.makeText(getApplicationContext(),"Money Transfer Registered!!!",Toast.LENGTH_LONG).show();
+                    Intent main = new Intent(this,MainActivity.class);
+                    startActivity(main);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();
+                }
+            }
+        }else if(view.getId()==R.id.txtShowBalance){
+            showBalance();
         }
     }
 
-    private void addMoneyTransfer(){
+    private boolean addMoneyTransfer(){
         String stFromAccNo = spnFrom.getSelectedItem().toString();
         String stToAccNo = spnTo.getSelectedItem().toString();
         String stAmount = txtAmount.getText().toString();
@@ -88,42 +115,64 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
         double amount = Double.parseDouble(stAmount);
 
         ArrayList<Integer> moneyTrans = dbHelper.readLastTransferID();
-        String lastID = moneyTrans.get(0).toString();
-        if(lastID.equals("")){
+        if(moneyTrans.isEmpty()){
             id=12345;
         }else{
-            int preAccNumber = Integer.parseInt(lastID);
+            int preAccNumber = moneyTrans.get(0);
             id = preAccNumber+1;
         }
 
         String approvedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-        if(dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate)){
-            Toast.makeText(getApplicationContext(),"Money Transfer Registered!!!",Toast.LENGTH_LONG).show();
-            Intent main = new Intent(this,MainActivity.class);
-            startActivity(main);
-        }else
-            Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();
+        return dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate);
     }
 
     private void addTransaction(){
         String stFromAccNo = spnFrom.getSelectedItem().toString();
+        String stToAccNo = spnTo.getSelectedItem().toString();
         String stAmount = txtAmount.getText().toString();
 
         int FromAccNo = Integer.parseInt(stFromAccNo);
+        int ToAccNo = Integer.parseInt(stToAccNo);
         double amount = Double.parseDouble(stAmount);
 
         String transDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         ArrayList<Integer> transaction = dbHelper.readLastTransactionID();
-        String lastID = transaction.get(0).toString();
-        if(lastID.equals("")){
+        if(transaction.isEmpty()){
             transID=1234567890;
         }else{
-            int preAccNumber = Integer.parseInt(lastID);
+            int preAccNumber = transaction.get(0);
             transID = preAccNumber+1;
         }
 
-        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,25);
+        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance);
+        dbHelper.addInfoToTransaction(transID+1,ToAccNo,"Money Transfer",transDate,0,amount,balanceTo);
+    }
+
+    private void showBalance(){
+        ArrayList<Double> balance = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
+
+        String bal = Double.toString(balance.get(0));
+
+        txtShowBalance.setText(bal);
+    }
+
+    private void updateBalance(){
+        String accountNo = spnFrom.getSelectedItem().toString();
+        String accountNoTo = spnTo.getSelectedItem().toString();
+
+        balanceArr = dbHelper.showBalance(accountNo);
+        balanceArrTo =dbHelper.showBalance(accountNoTo);
+
+        balance = balanceArr.get(0);
+        balanceTo = balanceArrTo.get(0);
+
+        double transferAmount = Double.parseDouble(txtAmount.getText().toString());
+        balance=balance-transferAmount;
+        balanceTo = balanceTo+transferAmount;
+
+        dbHelper.updateBalance(accountNo,balance);
+        dbHelper.updateBalance(accountNoTo,balanceTo);
     }
 }

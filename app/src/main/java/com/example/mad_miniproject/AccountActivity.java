@@ -113,7 +113,8 @@ public class AccountActivity extends AppCompatActivity {
         if(!transInfo.isEmpty()) {
             re1.setText(transInfo.get(0));
             dt1.setText(transInfo.get(1));
-            if (transInfo.get(2).equals("0.0")) {
+            double amount1 = Double.parseDouble(transInfo.get(2));
+            if (amount1!=0) {
                 String txt1 = transInfo.get(2) + "(C)";
                 dc1.setText(txt1);
             } else {
@@ -126,7 +127,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>5){
             re2.setText(transInfo.get(5));
             dt2.setText(transInfo.get(6));
-            if (transInfo.get(7).equals("0.0")) {
+            double amount2 = Double.parseDouble(transInfo.get(7));
+            if (amount2!=0) {
                 String txt1 = transInfo.get(7) + "(C)";
                 dc2.setText(txt1);
             } else {
@@ -139,7 +141,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>10){
             re3.setText(transInfo.get(10));
             dt3.setText(transInfo.get(11));
-            if (transInfo.get(12).equals("0.0")) {
+            double amount3 = Double.parseDouble(transInfo.get(12));
+            if (amount3!=0) {
                 String txt1 = transInfo.get(12) + "(C)";
                 dc3.setText(txt1);
             } else {
@@ -152,7 +155,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>15){
             re4.setText(transInfo.get(15));
             dt4.setText(transInfo.get(16));
-            if (transInfo.get(17).equals("0.0")) {
+            double amount4 = Double.parseDouble(transInfo.get(17));
+            if (amount4!=0) {
                 String txt1 = transInfo.get(17) + "(C)";
                 dc4.setText(txt1);
             } else {
@@ -165,7 +169,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>20){
             re5.setText(transInfo.get(20));
             dt5.setText(transInfo.get(21));
-            if (transInfo.get(22).equals("0.0")) {
+            double amount5 = Double.parseDouble(transInfo.get(22));
+            if (amount5!=0) {
                 String txt1 = transInfo.get(22) + "(C)";
                 dc5.setText(txt1);
             } else {
@@ -175,10 +180,11 @@ public class AccountActivity extends AppCompatActivity {
             ba5.setText(transInfo.get(24));
         }
 
-        if(lenArr>15){
+        if(lenArr>25){
             re6.setText(transInfo.get(25));
             dt6.setText(transInfo.get(26));
-            if (transInfo.get(27).equals("0.0")) {
+            double amount6 = Double.parseDouble(transInfo.get(27));
+            if (amount6!=0) {
                 String txt1 = transInfo.get(27) + "(C)";
                 dc6.setText(txt1);
             } else {
@@ -191,7 +197,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>30){
             re7.setText(transInfo.get(30));
             dt7.setText(transInfo.get(31));
-            if (transInfo.get(32).equals("0.0")) {
+            double amount7 = Double.parseDouble(transInfo.get(32));
+            if (amount7!=0) {
                 String txt1 = transInfo.get(32) + "(C)";
                 dc7.setText(txt1);
             } else {
@@ -204,7 +211,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>35){
             re8.setText(transInfo.get(35));
             dt8.setText(transInfo.get(36));
-            if (transInfo.get(37).equals("0.0")) {
+            double amount8 = Double.parseDouble(transInfo.get(37));
+            if (amount8!=0) {
                 String txt1 = transInfo.get(37) + "(C)";
                 dc8.setText(txt1);
             } else {
@@ -217,7 +225,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>40){
             re9.setText(transInfo.get(40));
             dt9.setText(transInfo.get(41));
-            if (transInfo.get(42).equals("0.0")) {
+            double amount9 = Double.parseDouble(transInfo.get(42));
+            if (amount9!=0) {
                 String txt1 = transInfo.get(42) + "(C)";
                 dc9.setText(txt1);
             } else {
@@ -230,7 +239,8 @@ public class AccountActivity extends AppCompatActivity {
         if(lenArr>45){
             re10.setText(transInfo.get(45));
             dt10.setText(transInfo.get(46));
-            if (transInfo.get(47).equals("0.0")) {
+            double amount10 = Double.parseDouble(transInfo.get(47));
+            if (amount10!=0) {
                 String txt1 = transInfo.get(47) + "(C)";
                 dc10.setText(txt1);
             } else {

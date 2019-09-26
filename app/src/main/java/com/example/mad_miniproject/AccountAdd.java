@@ -31,7 +31,7 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
     private TextView addDate,erTxtAccType,erTxtDate,erTxtRelation,erTxtCurBal;
     private DatePickerDialog.OnDateSetListener setListener;
     private Button btnAddAccount;
-    int accountNumber;
+    private int accountNumber;
     DBHelper dbHelper;
 
     @Override
@@ -126,21 +126,25 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
                 erTxtDate.setText("");
                 erTxtRelation.setText("");
             }else{
-                addAccount();
-                if(relation.getSelectedItem().toString().equals("Single")){
-                    Intent addSingleMem = new Intent(this,AccountSingle.class);
-                    addSingleMem.putExtra(EXTRA_MESSAGE,Integer.toString(accountNumber));
-                    startActivity(addSingleMem);
-                }else if(relation.getSelectedItem().toString().equals("Joint")){
-                    Intent addMultMem = new Intent(this,AccountJoined.class);
-                    addMultMem.putExtra(EXTRA_MESSAGE,Integer.toString(accountNumber));
-                    startActivity(addMultMem);
+                if(addAccount()) {
+                    Toast.makeText(getApplicationContext(),"Account add Successfully!!!",Toast.LENGTH_LONG).show();
+                    if (relation.getSelectedItem().toString().equals("Single")) {
+                        Intent addSingleMem = new Intent(this, AccountSingle.class);
+                        addSingleMem.putExtra(EXTRA_MESSAGE, Integer.toString(accountNumber));
+                        startActivity(addSingleMem);
+                    } else if (relation.getSelectedItem().toString().equals("Joint")) {
+                        Intent addMultMem = new Intent(this, AccountJoined.class);
+                        addMultMem.putExtra(EXTRA_MESSAGE, Integer.toString(accountNumber));
+                        startActivity(addMultMem);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Cannot add account",Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
 
-    private void addAccount(){
+    private boolean addAccount(){
         String accountType = accType.getSelectedItem().toString();
         String openDate = addDate.getText().toString();
         String relationship = relation.getSelectedItem().toString();
@@ -157,10 +161,7 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
             accountNumber = preAccNumber+1;
         }
 
-        if(dbHelper.addInfoToAccount(accountNumber,accountType,openDate,relationship,balance,productName,branch))
-            Toast.makeText(getApplicationContext(),"Successfully Inserted!!!",Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(getApplicationContext(),"Not Inserted!!!",Toast.LENGTH_LONG).show();
+        return dbHelper.addInfoToAccount(accountNumber,accountType,openDate,relationship,balance,productName,branch);
     }
 
 }

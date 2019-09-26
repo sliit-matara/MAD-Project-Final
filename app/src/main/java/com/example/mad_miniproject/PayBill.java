@@ -41,9 +41,7 @@ public class PayBill extends AppCompatActivity implements View.OnClickListener {
         Intent intent = getIntent();
         nic = intent.getStringExtra(MainActivity.NICOFHOLDER);
 
-        ArrayList<Integer> accNumbers =new ArrayList<>();
-
-        accNumbers = dbHelper.getAccount(nic);
+        ArrayList<Integer> accNumbers = dbHelper.getAccount(nic);
 
         ArrayAdapter<Integer> accAdapter = new ArrayAdapter<Integer>(PayBill.this,android.R.layout.simple_list_item_1,
                 accNumbers);

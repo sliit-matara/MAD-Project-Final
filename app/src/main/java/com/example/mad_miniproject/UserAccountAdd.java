@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
 
+import java.util.ArrayList;
+
 public class UserAccountAdd extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnAdd;
@@ -46,6 +48,7 @@ public class UserAccountAdd extends AppCompatActivity implements View.OnClickLis
             String unValue = txtUN.getText().toString();
             String pwdValue = txtPwd.getText().toString();
             String nicValue = txtNIC.getText().toString();
+            ArrayList<String> nameList = dbHelper.checkMember(nicValue);
 
             if ((unValue.equals("")) || (unValue.length() <= 6) || (unValue.length() >= 15)) {
                 erTxtUN.setTextColor(Color.RED);
@@ -57,12 +60,12 @@ public class UserAccountAdd extends AppCompatActivity implements View.OnClickLis
                 erTxtPwd.setText("Please enter valid password");
                 erTxtUN.setText("");
                 erTxtNIC.setText("");
-            } else if (nicValue.length() < 10 || nicValue.length() >= 12) {
+            } else if (nicValue.length() < 10 || nicValue.length() >= 12||nameList.isEmpty()) {
                 erTxtNIC.setTextColor(Color.RED);
                 erTxtNIC.setText("Please enter valid nic");
                 erTxtUN.setText("");
                 erTxtPwd.setText("");
-            } else {
+            }else {
                 addUserAccount();
                 Intent adminMain = new Intent(this, MainAdmin.class);
                 startActivity(adminMain);

@@ -54,9 +54,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String userName = txtUN.getText().toString();
         String password = txtPwd.getText().toString();
 
-        ArrayList<String> list = new ArrayList<>();
-
-        list = dbHelper.getUnPwd(userName,password);
+        ArrayList<String> list = dbHelper.getUnPwd(userName,password);
 
         if(list.isEmpty()){
             Toast.makeText(getApplicationContext(),"Username or Password wrong!!!",Toast.LENGTH_LONG).show();

@@ -3,6 +3,7 @@ package com.example.mad_miniproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mad_miniproject.DB_Files.DBHelper;
@@ -27,6 +29,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     public EditText txtAmount,txtIntRate;
     public String nic;
     public int id;
+    private TextView errorType,errorloanAmount,errorDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,10 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         spnDuration = findViewById(R.id.spnLoanDuration);
         txtAmount = findViewById(R.id.txtLoanAmount);
         txtIntRate = findViewById(R.id.txtIntRate);
+
+        errorType=findViewById(R.id.erTxtLoanType);
+        errorloanAmount = findViewById(R.id.erTxtLoanAmount);
+        errorDuration = findViewById(R.id.erTxtLoanDuration);
 
         ArrayAdapter<String> loanTypeAdapter = new ArrayAdapter<String>(LoanApply.this,android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.loanType));
@@ -89,7 +96,18 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnLoanApply){
-            addLoan();
+            if(spnType.getSelectedItem().toString().equals("Choose...")){
+                errorType.setTextColor(Color.RED);
+                errorType.setText("Choose a loan type");
+            }else if(spnDuration.getSelectedItem().toString().equals("Choose...")){
+                errorDuration.setTextColor(Color.RED);
+                errorDuration.setText("Choose a duration");
+            }else if(txtAmount.getText().toString().equals("")){
+                errorloanAmount.setTextColor(Color.RED);
+                errorloanAmount.setText("Enter a amount");
+            }else{
+                addLoan();
+            }
 
         }
     }

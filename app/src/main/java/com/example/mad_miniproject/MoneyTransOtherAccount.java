@@ -49,9 +49,7 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
         Intent intent = getIntent();
         nic = intent.getStringExtra(MoneyTransMain.USERNIC);
 
-        ArrayList<Integer> accNumbers;
-
-        accNumbers = dbHelper.getAccount(nic);
+        ArrayList<Integer> accNumbers = dbHelper.getAccount(nic);
 
         ArrayAdapter<Integer> accAdapter = new ArrayAdapter<Integer>(MoneyTransOtherAccount.this,android.R.layout.simple_list_item_1,
                 accNumbers);
@@ -68,6 +66,7 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btnTransfer){
+            ArrayList<Double> balances = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
             String from = spnFrom.getSelectedItem().toString();
             String to = txtTo.getText().toString();
             String transAmt = txtAmount.getText().toString();
@@ -83,13 +82,18 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
                 errorAccNo.setTextColor(Color.RED);
                 errorAccNo.setText("Account Number Cannot be same");
                 errorAmount.setText("");
+            }else if(balances.get(0)<Integer.parseInt(transAmt)) {
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Amount exceeds from balance");
+                errorAccNo.setText("");
             }else {
                 if(addMoneyTransfer()){
                     updateBalance();
-                    addTransaction();
-                    Toast.makeText(getApplicationContext(),"Money Transfer Registered!!!",Toast.LENGTH_LONG).show();
-                    Intent main = new Intent(this, MainActivity.class);
-                    startActivity(main);
+                    if(addTransaction()) {
+                        Toast.makeText(getApplicationContext(), "Money Transfer Registered!!!", Toast.LENGTH_LONG).show();
+                        Intent main = new Intent(this, MainActivity.class);
+                        startActivity(main);
+                    }
                 }else{
                     Toast.makeText(getApplicationContext(), "Cannot Transfer", Toast.LENGTH_LONG).show();
                 }
@@ -118,14 +122,10 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
 
         String approvedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-        if(dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate)){
-            return true;
-        }else {
-            return false;
-        }
+        return (dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate));
     }
 
-    private void addTransaction(){
+    private boolean addTransaction(){
         String stFromAccNo = spnFrom.getSelectedItem().toString();
         String stToAccNo = txtTo.getText().toString();
         String stAmount = txtAmount.getText().toString();
@@ -144,8 +144,8 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
             transID = preAccNumber+1;
         }
 
-        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance);
-        dbHelper.addInfoToTransaction(transID+1,ToAccNo,"Money Transfer",transDate,0,amount,balanceTo);
+        return (dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance)&&
+        dbHelper.addInfoToTransaction(transID+1,ToAccNo,"Money Transfer",transDate,0,amount,balanceTo));
     }
 
     private void showBalance(){

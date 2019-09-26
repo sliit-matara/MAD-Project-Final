@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class AccountSingle extends AppCompatActivity implements View.OnClickListener {
 
     EditText txtHolderNIC;
-    Button btnAdd;
+    private Button btnAdd;
     private String accountNumber,nic;
     TextView errorNIC;
     DBHelper dbHelper;
@@ -44,26 +44,25 @@ public class AccountSingle extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.getId()==R.id.btnAdd){
             nic = txtHolderNIC.getText().toString();
-            ArrayList<String> nameList;
-            nameList = dbHelper.checkMember(nic);
+            ArrayList<String> nameList = dbHelper.checkMember(nic);
             String msg ="Member NIC not registered";
-            if(nameList.isEmpty()){
+            if(nameList.isEmpty()||nic.equals("")){
                 errorNIC.setTextColor(Color.RED);
                 errorNIC.setText(msg);
             }else{
-                addAccount_Holder();
-                Intent adminMain = new Intent(this, MainAdmin.class);
-                startActivity(adminMain);
+                if(addAccount_Holder()) {
+                    Toast.makeText(getApplicationContext(),"Account Holder assigned",Toast.LENGTH_LONG).show();
+                    Intent adminMain = new Intent(this, MainAdmin.class);
+                    startActivity(adminMain);
+                }else
+                    Toast.makeText(getApplicationContext(),"Cannot assign Account Holder",Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    private void addAccount_Holder(){
+    private boolean addAccount_Holder(){
         int accountNo = Integer.parseInt(accountNumber);
 
-        if (dbHelper.addInfoToACCOUNT_HOLDER(nic, accountNo)) {
-            Toast.makeText(getApplicationContext(), "Inserted a new Account_Holder!", Toast.LENGTH_LONG).show();
-        } else
-            Toast.makeText(getApplicationContext(), "Cannot insert the Account_Holder", Toast.LENGTH_LONG).show();
+        return (dbHelper.addInfoToACCOUNT_HOLDER(nic, accountNo));
     }
 }

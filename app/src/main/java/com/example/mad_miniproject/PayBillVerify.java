@@ -85,9 +85,7 @@ public class PayBillVerify extends AppCompatActivity implements View.OnClickList
     }
 
     private void showBalance(){
-        ArrayList<Double> balance;
-
-        balance = dbHelper.showBalance(accNo);
+        ArrayList<Double> balance = dbHelper.showBalance(accNo);
 
         String bal = Double.toString(balance.get(0));
 

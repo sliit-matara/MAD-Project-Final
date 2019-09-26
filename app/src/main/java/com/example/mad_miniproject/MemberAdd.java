@@ -125,14 +125,24 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
                 erTxtDOB.setText("");
                 erTxtNIC.setText("");
             }else{
-                addMember();
-                Intent adminMain = new Intent(this,MainAdmin.class);
-                startActivity(adminMain);
+                if(addMember()) {
+                    Toast.makeText(getApplicationContext(),"Adding member Successfully!!!",Toast.LENGTH_LONG).show();
+                    Intent adminMain = new Intent(this, MainAdmin.class);
+                    startActivity(adminMain);
+                }else {
+                    Toast.makeText(getApplicationContext(), "Cannot add member!!!", Toast.LENGTH_LONG).show();
+                    erTxtNIC.setTextColor(Color.RED);
+                    erTxtNIC.setText("NIC already used");
+                    erTxtMobile.setText("");
+                    erTxtEmail.setText("");
+                    erTxtDOB.setText("");
+                    erTxtName.setText("");
+                }
             }
         }
     }
 
-    private void addMember() {
+    private boolean addMember() {
         String nic = txtNIC.getText().toString();
         String name = txtName.getText().toString();
         String mobileNo = txtMobile.getText().toString();
@@ -140,10 +150,6 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
         String address = txtAddress.getText().toString();
         String email = txtEmail.getText().toString();
 
-        if (dbHelper.addInfoToAccountHolder(nic,name,mobileNo,dob,address,email)) {
-            Toast.makeText(getApplicationContext(), "Inserted a new Account Holder!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Cannot Insert the Account Holder!", Toast.LENGTH_LONG).show();
-        }
+        return (dbHelper.addInfoToAccountHolder(nic,name,mobileNo,dob,address,email));
     }
 }

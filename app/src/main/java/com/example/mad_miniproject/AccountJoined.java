@@ -32,7 +32,7 @@ public class AccountJoined extends AppCompatActivity implements View.OnClickList
 
         txtNIC1 = (EditText) findViewById(R.id.txtNIC1);
         txtNIC2 = (EditText) findViewById(R.id.txtNIC2);
-        btnAdding = (Button) findViewById(R.id.btnAdd);
+        btnAdding = (Button) this.findViewById(R.id.btnAdd);
         error1 = findViewById(R.id.erTxt1NIC);
         error2 = findViewById(R.id.erTxt2NIC);
 
@@ -51,30 +51,31 @@ public class AccountJoined extends AppCompatActivity implements View.OnClickList
             ArrayList<String> nameSet2 = dbHelper.checkMember(nic2);
             String msg = "Member not registered!!!";
             if(nic1.equals(nic2)) {
-                Toast.makeText(getApplicationContext(),"Cannot",Toast.LENGTH_LONG).show();
-            }else if(nameSet1.isEmpty()) {
+                error2.setTextColor(Color.RED);
+                error2.setText("NIC cannot be same!!!");
+                error1.setText("");
+            }else if(nameSet1.isEmpty()||nic1.equals("")) {
                 error2.setText("");
                 error1.setTextColor(Color.RED);
                 error1.setText(msg);
-            }else if(nameSet2.isEmpty()){
+            }else if(nameSet2.isEmpty()||nic2.equals("")){
                 error1.setText("");
                 error2.setTextColor(Color.RED);
                 error2.setText(msg);
             }else{
-                addAccount_Holder();
-                Intent adminMain = new Intent(AccountJoined.this, MainAdmin.class);
-                startActivity(adminMain);
+                if(addAccount_Holder()) {
+                    Toast.makeText(getApplicationContext(),"Account Holders are assigned",Toast.LENGTH_LONG).show();
+                    Intent adminMain = new Intent(AccountJoined.this, MainAdmin.class);
+                    startActivity(adminMain);
+                }else
+                    Toast.makeText(getApplicationContext(),"Cannot assign Account Holders",Toast.LENGTH_LONG).show();;
             }
         }
     }
 
-    private void addAccount_Holder(){
+    private boolean addAccount_Holder(){
         int accNo = Integer.parseInt(accountNumber);
 
-        if((dbHelper.addInfoToACCOUNT_HOLDER(nic1,accNo))&&(dbHelper.addInfoToACCOUNT_HOLDER(nic2,accNo)))
-            Toast.makeText(getApplicationContext(),"Inserted new Account_Holders!",Toast.LENGTH_LONG).show();
-        else {
-            Toast.makeText(getApplicationContext(), "Connot insert the Account Holders!", Toast.LENGTH_LONG).show();
-        }
+        return ((dbHelper.addInfoToACCOUNT_HOLDER(nic1,accNo))&&(dbHelper.addInfoToACCOUNT_HOLDER(nic2,accNo)));
     }
 }

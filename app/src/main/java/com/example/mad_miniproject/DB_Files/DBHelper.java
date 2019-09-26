@@ -635,13 +635,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> checkMember(String nic){
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT holderName FROM accountHolder WHERE nic=?";
+        String query = "SELECT "+ BankMaster.AccountHolder.COLUMN_NAME_HOLDERNAME+" FROM "+ BankMaster.AccountHolder.TABLE_NAME+" WHERE "+ BankMaster.AccountHolder.COLUMN_NAME_NIC +"=?";
         Cursor cursor = db.rawQuery(query, new String[]{nic});
 
         ArrayList<String> names = new ArrayList<>();
 
         while(cursor.moveToNext()){
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.AccountHolder.COLUMN_NAME_NIC));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.AccountHolder.COLUMN_NAME_HOLDERNAME));
 
             names.add(name);
         }

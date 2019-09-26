@@ -92,10 +92,11 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
             }else {
                 if(addMoneyTransfer()){
                     updateBalance();
-                    addTransaction();
-                    Toast.makeText(getApplicationContext(),"Money Transfer Registered!!!",Toast.LENGTH_LONG).show();
-                    Intent main = new Intent(this,MainActivity.class);
-                    startActivity(main);
+                    if (addTransaction()) {
+                        Toast.makeText(getApplicationContext(), "Money Transfer Registered!!!", Toast.LENGTH_LONG).show();
+                        Intent main = new Intent(this, MainActivity.class);
+                        startActivity(main);
+                    }
                 }else{
                     Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();
                 }
@@ -127,7 +128,7 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
         return dbHelper.addInfoToMoneyTransfer(id,FromAccNo,ToAccNo,amount,approvedDate);
     }
 
-    private void addTransaction(){
+    private boolean addTransaction(){
         String stFromAccNo = spnFrom.getSelectedItem().toString();
         String stToAccNo = spnTo.getSelectedItem().toString();
         String stAmount = txtAmount.getText().toString();
@@ -146,8 +147,8 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
             transID = preAccNumber+1;
         }
 
-        dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance);
-        dbHelper.addInfoToTransaction(transID+1,ToAccNo,"Money Transfer",transDate,0,amount,balanceTo);
+        return (dbHelper.addInfoToTransaction(transID,FromAccNo,"Money Transfer",transDate,amount,0,balance)&&
+        dbHelper.addInfoToTransaction(transID+1,ToAccNo,"Money Transfer",transDate,0,amount,balanceTo));
     }
 
     private void showBalance(){

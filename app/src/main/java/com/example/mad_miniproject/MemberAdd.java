@@ -60,7 +60,7 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        MemberAdd.this,android.R.style.Theme,
+                        MemberAdd.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         setListener,year,month,day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
@@ -84,6 +84,7 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
         if(view.getId()==R.id.btnAdd){
             String alphabaticExp = "[ .a-zA-Z]+";
             String emailExp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+            String numaricExp= "/^[0-9]+$/";
 
             Matcher nameMatch = Pattern.compile(alphabaticExp).matcher(txtName.getText().toString());
             Matcher emailMatch = Pattern.compile(emailExp).matcher(txtEmail.getText().toString());
@@ -96,9 +97,9 @@ public class MemberAdd extends AppCompatActivity implements View.OnClickListener
                 erTxtMobile.setText("");
                 erTxtDOB.setText("");
                 erTxtEmail.setText("");
-            }else if((txtNIC.equals(""))||(!(nicLen<=12))||(!(nicLen>=10))) {
+            }else if((txtNIC.equals(""))||!(nicLen>=10)||!(nicLen<=12)) {
                 erTxtNIC.setTextColor(Color.RED);
-                erTxtNIC.setText("Enter valid NIC");
+                erTxtNIC.setText("Enter valid NICL");
                 erTxtName.setText("");
                 erTxtMobile.setText("");
                 erTxtDOB.setText("");

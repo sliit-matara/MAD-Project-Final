@@ -50,7 +50,11 @@ public class AccountSingle extends AppCompatActivity implements View.OnClickList
                 errorNIC.setTextColor(Color.RED);
                 errorNIC.setText(msg);
             }else{
-                if(addAccount_Holder()) {
+                ArrayList<Integer> noOfAccount = dbHelper.getCountAccount(nic);
+                if(noOfAccount.size()>5){
+                    errorNIC.setTextColor(Color.RED);
+                    errorNIC.setText("maximum account exceeds");
+                }else if(addAccount_Holder()) {
                     Toast.makeText(getApplicationContext(),"Account Holder assigned",Toast.LENGTH_LONG).show();
                     Intent adminMain = new Intent(this, MainAdmin.class);
                     startActivity(adminMain);

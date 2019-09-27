@@ -96,6 +96,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 accNo = spnAcc.getSelectedItem().toString();
+                setNull();
                 showDetails();
             }
 
@@ -249,5 +250,51 @@ public class AccountActivity extends AppCompatActivity {
             }
             ba10.setText(transInfo.get(49));
         }
+    }
+
+    private void setNull(){
+        dt1.setText("");
+        dt2.setText("");
+        dt3.setText("");
+        dt4.setText("");
+        dt5.setText("");
+        dt6.setText("");
+        dt7.setText("");
+        dt8.setText("");
+        dt9.setText("");
+        dt10.setText("");
+
+        re1.setText("");
+        re2.setText("");
+        re3.setText("");
+        re4.setText("");
+        re5.setText("");
+        re6.setText("");
+        re7.setText("");
+        re8.setText("");
+        re9.setText("");
+        re10.setText("");
+
+        dc1.setText("");
+        dc2.setText("");
+        dc3.setText("");
+        dc4.setText("");
+        dc5.setText("");
+        dc6.setText("");
+        dc7.setText("");
+        dc8.setText("");
+        dc9.setText("");
+        dc10.setText("");
+
+        ba1.setText("");
+        ba2.setText("");
+        ba3.setText("");
+        ba4.setText("");
+        ba5.setText("");
+        ba6.setText("");
+        ba7.setText("");
+        ba8.setText("");
+        ba9.setText("");
+        ba10.setText("");
     }
 }

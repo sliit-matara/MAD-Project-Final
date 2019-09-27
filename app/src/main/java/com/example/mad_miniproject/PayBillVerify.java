@@ -67,7 +67,11 @@ public class PayBillVerify extends AppCompatActivity implements View.OnClickList
                 errorAmount.setTextColor(Color.RED);
                 errorAmount.setText("Enter a amount");
                 errorAcc.setText("");
-            }else if(Integer.parseInt(txtAmount.getText().toString())>balance.get(0)){
+            }else if(txtAmount.getText().toString().length()>=5){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("maximum amount = 99,999/-");
+                errorAcc.setText("");
+            }else if(Integer.parseInt(txtAmount.getText().toString())>balance.get(0)) {
                 errorAmount.setTextColor(Color.RED);
                 errorAmount.setText("Amount exceeds from balance");
                 errorAcc.setText("");

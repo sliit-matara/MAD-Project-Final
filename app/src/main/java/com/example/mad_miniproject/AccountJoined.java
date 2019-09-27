@@ -63,7 +63,17 @@ public class AccountJoined extends AppCompatActivity implements View.OnClickList
                 error2.setTextColor(Color.RED);
                 error2.setText(msg);
             }else{
-                if(addAccount_Holder()) {
+                ArrayList<Integer> noOfAccount1 = dbHelper.getCountAccount(nic1);
+                ArrayList<Integer> noOfAccount2 = dbHelper.getCountAccount(nic2);
+                if(noOfAccount1.size()>5){
+                    error2.setText("");
+                    error1.setTextColor(Color.RED);
+                    error1.setText("maximum account exceeds");
+                }else if(noOfAccount2.size()>5){
+                    error2.setText("");
+                    error1.setTextColor(Color.RED);
+                    error1.setText("maximum account exceeds");
+                }else if(addAccount_Holder()) {
                     Toast.makeText(getApplicationContext(),"Account Holders are assigned",Toast.LENGTH_LONG).show();
                     Intent adminMain = new Intent(AccountJoined.this, MainAdmin.class);
                     startActivity(adminMain);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Bank4.db";
+    public static final String DATABASE_NAME = "Bank.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -88,7 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+"("+ BankMaster.Login.COLUMN_NAME_USERNAME+", "+ BankMaster.Login.COLUMN_NAME_PASSWORD +")"+
                 "VALUES ('Admin','Bara%@&321')";
 
-        String INSERT_QUERY_MEMBER =
+        /*String INSERT_QUERY_MEMBER =
                 "INSERT INTO "+ BankMaster.AccountHolder.TABLE_NAME+" VALUES ('990291390V', 'Bojitha Mindula', '0775631456','1999-01-29','Galle','boji@gamil.com')";
 
         String INSERT_QUERY_ACCOUNT1 =
@@ -116,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(123,'990291390V','Student',200000.00,'2016-10-20',24,10)";
 
         String INSERT_QUERY_TRANSACTION =
-                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";
+                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";*/
 
         db.execSQL(ACCOUNT_CREATE_QUERY);
         db.execSQL(ACCOUNTHOLDER_CREATE_QUERY);
@@ -127,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(LOAN_CREATE_QUERY);
         db.execSQL(TRANSACTION_CREATE_QUERY);
         db.execSQL(ADMIN_INSERT_VALUE_QUERY);
-        db.execSQL(INSERT_QUERY_MEMBER);
+        /*db.execSQL(INSERT_QUERY_MEMBER);
         db.execSQL(INSERT_QUERY_ACCOUNT1);
         db.execSQL(INSERT_QUERY_ACCOUNT2);
         db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER1);
@@ -136,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(INSERT_QUERY_MONEY_TRANSFER);
         db.execSQL(INSERT_QUERY_BILL_PAYMENT);
         db.execSQL(INSERT_QUERY_LOAN);
-        db.execSQL(INSERT_QUERY_TRANSACTION);
+        db.execSQL(INSERT_QUERY_TRANSACTION);*/
     }
 
     @Override
@@ -647,5 +647,22 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return names;
+    }
+
+    public ArrayList<Integer> getCountAccount(String nic){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT accountNo FROM account_holder WHERE nic=?";
+        Cursor cursor = db.rawQuery(query, new String[]{nic});
+
+        ArrayList<Integer> accounts = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            int account = cursor.getInt(cursor.getColumnIndexOrThrow(BankMaster.Account_Holder.COLUMN_NAME_ACCOUNTNUMBER));
+
+            accounts.add(account);
+        }
+        cursor.close();
+        return accounts;
     }
 }

@@ -4,7 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountActivity">
+    android:background="@drawable/bg1"
+    tools:context=".AccountActivity">.
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="71dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bank_icon" />
+
+    <TextView
+        android:id="@+id/textView72"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="FDI BANK"
+        android:textColor="#9e005d"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004" />
 
     <TextView
         android:id="@+id/txtAccountActivity"
@@ -103,57 +139,69 @@
                     android:id="@+id/textView74"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="Date" />
+                    android:text="Date"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/date1"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date2"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date3"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date4"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date5"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date6"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date7"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date8"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date9"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/date10"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
 
@@ -171,57 +219,69 @@
                     android:id="@+id/textView86"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="Reference" />
+                    android:text="Reference"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/ref1"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref2"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref3"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref4"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref5"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref6"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref7"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref8"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref9"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/ref10"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
 
@@ -239,57 +299,69 @@
                     android:id="@+id/textView97"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="Credit/Debit" />
+                    android:text="Credit/Debit"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/cd1"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd2"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd3"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd4"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd5"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd6"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd7"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd8"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd9"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/cd10"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
 
@@ -307,57 +379,69 @@
                     android:id="@+id/textView108"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="@string/balance" />
+                    android:text="@string/balance"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/bal1"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal2"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal3"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal4"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal5"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal6"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal7"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal8"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal9"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/bal10"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

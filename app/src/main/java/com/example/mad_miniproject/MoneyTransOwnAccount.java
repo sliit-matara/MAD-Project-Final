@@ -73,6 +73,7 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
             ArrayList<Double> balances = dbHelper.showBalance(spnFrom.getSelectedItem().toString());
             String fromAccount = spnFrom.getSelectedItem().toString();
             String toAccount = spnTo.getSelectedItem().toString();
+            String amount = txtAmount.getText().toString();
             if(fromAccount.equals(toAccount)) {
                 errorFrom.setTextColor(Color.RED);
                 errorTo.setTextColor(Color.RED);
@@ -84,9 +85,14 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
                 errorAmount.setText("Enter the amount");
                 errorFrom.setText("");
                 errorTo.setText("");
-            }else if(balances.get(0)<Integer.parseInt(txtAmount.getText().toString())){
+            }else if(balances.get(0)<Double.parseDouble(amount)){
                 errorAmount.setTextColor(Color.RED);
                 errorAmount.setText("Amount exceeds from balance");
+                errorFrom.setText("");
+                errorTo.setText("");
+            }else if (Double.parseDouble(amount)>=100000){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Transfer amount range:0-100,000");
                 errorFrom.setText("");
                 errorTo.setText("");
             }else {
@@ -94,8 +100,8 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
                     updateBalance();
                     if (addTransaction()) {
                         Toast.makeText(getApplicationContext(), "Money Transfer Registered!!!", Toast.LENGTH_LONG).show();
-                        Intent main = new Intent(this, MainActivity.class);
-                        startActivity(main);
+                        Intent transSuccess = new Intent(this, MoneyTransSuccess.class);
+                        startActivity(transSuccess);
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();

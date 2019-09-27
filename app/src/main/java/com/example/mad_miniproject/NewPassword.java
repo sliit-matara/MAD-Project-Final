@@ -53,7 +53,11 @@ public class NewPassword extends AppCompatActivity implements View.OnClickListen
         String password = pwd.getText().toString();
         String confirmPwd = conPwd.getText().toString();
 
-        if(password.equals(confirmPwd)){
+        if(password.length() <= 8 || password.length() >= 16) {
+            erText.setTextColor(Color.RED);
+            erText.setText("Enter valid password!!!");
+            return false;
+        }else if(password.equals(confirmPwd)){
             erText.setText("");
             return true;
         }else{

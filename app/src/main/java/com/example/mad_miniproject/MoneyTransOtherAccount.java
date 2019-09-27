@@ -74,25 +74,33 @@ public class MoneyTransOtherAccount extends AppCompatActivity implements View.On
                 errorAccNo.setTextColor(Color.RED);
                 errorAccNo.setText("Enter Account No");
                 errorAmount.setText("");
-            }else if(transAmt.equals("")){
-                errorAmount.setTextColor(Color.RED);
-                errorAmount.setText("Enter Transfer Amount");
-                errorAccNo.setText("");
             }else if(to.equals(from)){
                 errorAccNo.setTextColor(Color.RED);
                 errorAccNo.setText("Account Number Cannot be same");
                 errorAmount.setText("");
+            }else if(dbHelper.readAllInfoAccount(txtTo.getText().toString()).isEmpty()){
+                errorAccNo.setTextColor(Color.RED);
+                errorAccNo.setText("Account not registered");
+                errorAmount.setText("");
+            }else if(transAmt.equals("")){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Enter Transfer Amount");
+                errorAccNo.setText("");
             }else if(balances.get(0)<Integer.parseInt(transAmt)) {
                 errorAmount.setTextColor(Color.RED);
                 errorAmount.setText("Amount exceeds from balance");
+                errorAccNo.setText("");
+            }else if (Double.parseDouble(transAmt)>=100000){
+                errorAmount.setTextColor(Color.RED);
+                errorAmount.setText("Transfer amount range:0-100,000");
                 errorAccNo.setText("");
             }else {
                 if(addMoneyTransfer()){
                     updateBalance();
                     if(addTransaction()) {
                         Toast.makeText(getApplicationContext(), "Money Transfer Registered!!!", Toast.LENGTH_LONG).show();
-                        Intent main = new Intent(this, MainActivity.class);
-                        startActivity(main);
+                        Intent transSuccess = new Intent(this, MoneyTransSuccess.class);
+                        startActivity(transSuccess);
                     }
                 }else{
                     Toast.makeText(getApplicationContext(), "Cannot Transfer", Toast.LENGTH_LONG).show();

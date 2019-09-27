@@ -79,7 +79,7 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        AccountAdd.this,android.R.style.Theme,
+                        AccountAdd.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         setListener,year,month,day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();

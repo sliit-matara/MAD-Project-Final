@@ -87,6 +87,12 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
             errorCurPwd.setText("");
             errorNewPwd.setText("");
             return false;
+        }else if(newPassword.length() <= 8 || newPassword.length() >= 16){
+            errorNewPwd.setTextColor(Color.RED);
+            errorNewPwd.setText("Invalid Password!!!");
+            errorCurPwd.setText("");
+            errorConPwd.setText("");
+            return false;
         }else if (newPassword.equals(confirmPassword)) {
             return true;
         }else {

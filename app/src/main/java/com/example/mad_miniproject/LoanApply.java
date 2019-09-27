@@ -96,15 +96,24 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btnLoanApply){
-            if(spnType.getSelectedItem().toString().equals("Choose...")){
+            String type = spnType.getSelectedItem().toString();
+            String amt = txtAmount.getText().toString();
+            double valAmt = Double.parseDouble(amt);
+            if(type.equals("Choose...")){
                 errorType.setTextColor(Color.RED);
                 errorType.setText("Choose a loan type");
+                errorDuration.setText("");
+                errorloanAmount.setText("");
             }else if(spnDuration.getSelectedItem().toString().equals("Choose...")){
                 errorDuration.setTextColor(Color.RED);
                 errorDuration.setText("Choose a duration");
-            }else if(txtAmount.getText().toString().equals("")){
+                errorloanAmount.setText("");
+                errorType.setText("");
+            }else if(amt.equals("")) {
                 errorloanAmount.setTextColor(Color.RED);
                 errorloanAmount.setText("Enter a amount");
+                errorType.setText("");
+                errorDuration.setText("");
             }else{
                 addLoan();
             }
@@ -121,11 +130,10 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         double interestRate = Double.parseDouble(txtIntRate.getText().toString());
 
         ArrayList<Integer> loan = dbHelper.readLastLoanID();
-        String lastID = loan.get(0).toString();
-        if(lastID.equals("")){
+        if(loan.isEmpty()){
             id=123;
         }else{
-            int preAccNumber = Integer.parseInt(lastID);
+            int preAccNumber = loan.get(0);
             id = preAccNumber+1;
         }
 
@@ -133,7 +141,6 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
             Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
             Intent main = new Intent(this, MainActivity.class);
             startActivity(main);
-
         }else
             Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
     }

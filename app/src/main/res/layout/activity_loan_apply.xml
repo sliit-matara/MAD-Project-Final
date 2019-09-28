@@ -17,7 +17,7 @@
         android:layout_marginBottom="16dp"
         android:text="Loan Type"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -35,7 +35,7 @@
         android:layout_marginBottom="16dp"
         android:text="Amount"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,7 +53,7 @@
         android:layout_marginBottom="16dp"
         android:text="Duration"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -71,7 +71,7 @@
         android:layout_marginBottom="16dp"
         android:text="Apply for a Loan"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -90,6 +90,7 @@
         android:ems="10"
         android:hint="Enter Amount"
         android:inputType="number"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -99,7 +100,7 @@
 
     <Spinner
         android:id="@+id/spnLoanDuration"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -114,7 +115,7 @@
 
     <Spinner
         android:id="@+id/spnLoanType"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -137,7 +138,8 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_css"
         android:text="@string/applay"
-        android:textSize="16sp"
+        android:textColor="#fff"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -190,7 +192,7 @@
         android:layout_marginBottom="16dp"
         android:text="Interest Rate (%)"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -209,6 +211,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="number"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -218,12 +221,13 @@
 
     <TextView
         android:id="@+id/erTxtLoanType"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -233,32 +237,34 @@
 
     <TextView
         android:id="@+id/erTxtLoanDuration"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <TextView
         android:id="@+id/erTxtLoanAmount"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintVertical_bias="0.589" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

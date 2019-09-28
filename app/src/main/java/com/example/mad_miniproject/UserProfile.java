@@ -13,7 +13,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public static final String UN = "com.sample.UN";
 
     Button logout,changePwd;
-    TextView name;
     String un;
 
     @Override
@@ -23,7 +22,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         changePwd = findViewById(R.id.btnChangePwd);
         logout = findViewById(R.id.btnLogout);
-        name = findViewById(R.id.txtName);
 
         Intent intent = getIntent();
         un = intent.getStringExtra(MainActivity.UNOFHODER);

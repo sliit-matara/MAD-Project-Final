@@ -7,21 +7,6 @@
     android:background="@drawable/bg1"
     tools:context=".UserProfile">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
-
     <Button
         android:id="@+id/btnChangePwd"
         android:layout_width="0dp"
@@ -31,7 +16,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/btnChanePwd"
-        android:textSize="16sp"
+        android:textColor="#fff"
+        android:textSize="22sp"
         android:background="@drawable/button_css"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +34,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/btnLogout"
-        android:textSize="16sp"
+        android:textColor="#fff"
+        android:textSize="22sp"
         android:background="@drawable/button_css"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

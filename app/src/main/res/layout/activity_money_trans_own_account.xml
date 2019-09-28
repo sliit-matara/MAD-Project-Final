@@ -17,6 +17,7 @@
         android:layout_marginBottom="16dp"
         android:text="Show Balance"
         android:textColor="#a33772"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -34,7 +35,7 @@
         android:layout_marginBottom="16dp"
         android:text="From"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -44,7 +45,7 @@
 
     <Spinner
         android:id="@+id/spnAccount"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -67,13 +68,13 @@
         android:layout_marginBottom="16dp"
         android:text="Amount"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602" />
+        app:layout_constraintVertical_bias="0.597" />
 
     <EditText
         android:id="@+id/txtAmount"
@@ -85,7 +86,8 @@
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="Enter Transfer Amount"
-        android:inputType="number"
+        android:inputType="numberDecimal"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -103,7 +105,7 @@
         android:layout_marginBottom="16dp"
         android:text="My Own Account Transfer"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +121,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/transfer"
-        android:textSize="16sp"
+        android:textColor="#fff"
+        android:textSize="22sp"
         android:background="@drawable/button_css"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,12 +133,13 @@
 
     <TextView
         android:id="@+id/erTxtAccNo"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -180,12 +184,13 @@
 
     <TextView
         android:id="@+id/erTxtAmount"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -203,17 +208,17 @@
         android:layout_marginBottom="16dp"
         android:text="To"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintVertical_bias="0.475" />
 
     <Spinner
         android:id="@+id/spnTo"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -228,12 +233,13 @@
 
     <TextView
         android:id="@+id/erTxtTo"
-        android:layout_width="214dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

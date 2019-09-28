@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Bank.db";
+    private static final String DATABASE_NAME = "Bank.db";
 
     public DBHelper(Context context){super(context,DATABASE_NAME,null,1);}
 
@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "CREATE TABLE "+ BankMaster.Login.TABLE_NAME+" ("+
                         BankMaster.Login.COLUMN_NAME_USERNAME+" TEXT PRIMARY KEY,"+
                         BankMaster.Login.COLUMN_NAME_PASSWORD+" TEXT NOT NULL,"+
-                        BankMaster.Login.COLUMN_NAME_NIC+" TEXT REFERENCES "+ BankMaster.AccountHolder.TABLE_NAME +"("+ BankMaster.AccountHolder.COLUMN_NAME_NIC +"))";
+                        BankMaster.Login.COLUMN_NAME_NIC+" TEXT UNIQUE REFERENCES "+ BankMaster.AccountHolder.TABLE_NAME +"("+ BankMaster.AccountHolder.COLUMN_NAME_NIC +"))";
 
         String MONEYTRANSFER_CREATE_QUERY =
                 "CREATE TABLE "+ BankMaster.MoneyTransfer.TABLE_NAME+" ("+
@@ -88,36 +88,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "INSERT INTO "+ BankMaster.Login.TABLE_NAME+"("+ BankMaster.Login.COLUMN_NAME_USERNAME+", "+ BankMaster.Login.COLUMN_NAME_PASSWORD +")"+
                 "VALUES ('Admin','Bara%@&321')";
 
-        /*String INSERT_QUERY_MEMBER =
-                "INSERT INTO "+ BankMaster.AccountHolder.TABLE_NAME+" VALUES ('990291390V', 'Bojitha Mindula', '0775631456','1999-01-29','Galle','boji@gamil.com')";
-
-        String INSERT_QUERY_ACCOUNT1 =
-                "INSERT INTO "+ BankMaster.Account.TABLE_NAME+" VALUES (123456789,'Saving','2001-02-03','Single',250636.00,'Vishwa','Weligama')";
-
-        String INSERT_QUERY_ACCOUNT2=
-                "INSERT INTO "+ BankMaster.Account.TABLE_NAME+" VALUES (123456790,'Saving','2004-02-03','Single',250640.00,'Vishwa','Weligama')";
-
-        String INSERT_QUERY_ACCOUNT_HOLDER1 =
-                "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',123456789)";
-
-        String INSERT_QUERY_ACCOUNT_HOLDER2 =
-                "INSERT INTO "+ BankMaster.Account_Holder.TABLE_NAME+" VALUES ('990291390V',123456790)";
-
-        String INSERT_QUERY_LOGIN_USER =
-                "INSERT INTO "+ BankMaster.Login.TABLE_NAME+" VALUES ('Bojitha','Bojitha','990291390V')";
-
-        String INSERT_QUERY_MONEY_TRANSFER =
-                "INSERT INTO "+ BankMaster.MoneyTransfer.TABLE_NAME+" VALUES (12345,123456789,123456790,2000.00,'2016-02-04 18:20:18')";
-
-        String INSERT_QUERY_BILL_PAYMENT =
-                "INSERT INTO "+ BankMaster.BillPayment.TABLE_NAME+" VALUES(1234567,123456789,'Mobitel','0714500369',2000.00,'2017-10-20 12:12;12')";
-
-        String INSERT_QUERY_LOAN =
-                "INSERT INTO "+ BankMaster.Loan.TABLE_NAME+" VALUES(123,'990291390V','Student',200000.00,'2016-10-20',24,10)";
-
-        String INSERT_QUERY_TRANSACTION =
-                "INSERT INTO "+ BankMaster.Transaction.TABLE_NAME+" VALUES(1234567890,123456789,'Bill Payment','2016-02-04',2000.00,0.0,250636.00)";*/
-
         db.execSQL(ACCOUNT_CREATE_QUERY);
         db.execSQL(ACCOUNTHOLDER_CREATE_QUERY);
         db.execSQL(LOGIN_CREATE_QUERY);
@@ -127,16 +97,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(LOAN_CREATE_QUERY);
         db.execSQL(TRANSACTION_CREATE_QUERY);
         db.execSQL(ADMIN_INSERT_VALUE_QUERY);
-        /*db.execSQL(INSERT_QUERY_MEMBER);
-        db.execSQL(INSERT_QUERY_ACCOUNT1);
-        db.execSQL(INSERT_QUERY_ACCOUNT2);
-        db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER1);
-        db.execSQL(INSERT_QUERY_ACCOUNT_HOLDER2);
-        db.execSQL(INSERT_QUERY_LOGIN_USER);
-        db.execSQL(INSERT_QUERY_MONEY_TRANSFER);
-        db.execSQL(INSERT_QUERY_BILL_PAYMENT);
-        db.execSQL(INSERT_QUERY_LOAN);
-        db.execSQL(INSERT_QUERY_TRANSACTION);*/
     }
 
     @Override
@@ -158,10 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.Account.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToAccountHolder(String nic, String name,String mobileNo,String dob,String address,String email){
@@ -177,10 +134,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.AccountHolder.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToLogin(String username, String password,String nic){
@@ -193,10 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.Login.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToMoneyTransfer(int tranID, int accNo,int toAccount,double amount,String dateTime){
@@ -211,10 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.MoneyTransfer.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToBillPayment(int billID, int accNo, String biller, String billerAccNo, double amount, String dateTime){
@@ -230,10 +178,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.BillPayment.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToACCOUNT_HOLDER(String nic, int accountNo){
@@ -245,10 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.Account_Holder.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToLoan(int loanID, String nic,String type,double amount,String approvedDate,int duration,double intRate){
@@ -266,10 +208,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.Loan.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public boolean addInfoToTransaction(int transAcID, int accountNo,String mode, String transactionDate, double debit, double credit, double balance){
@@ -286,10 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long newRowId = db.insert(BankMaster.Transaction.TABLE_NAME,null,values);
 
-        if(newRowId>=1)
-            return true;
-        else
-            return false;
+        return (newRowId>=1);
     }
 
     public ArrayList<Integer> readLastAccountNumber(){
@@ -664,5 +600,39 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return accounts;
+    }
+
+    public ArrayList<String> checkNICAvailable(String nic){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT username FROM login WHERE nic=?";
+        Cursor cursor = db.rawQuery(query, new String[]{nic});
+
+        ArrayList<String> uns = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            String un = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_USERNAME));
+
+            uns.add(un);
+        }
+        cursor.close();
+        return uns;
+    }
+
+    public ArrayList<String> checkUNAvailable(String unsername){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT username FROM login WHERE username=?";
+        Cursor cursor = db.rawQuery(query, new String[]{unsername});
+
+        ArrayList<String> uns = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            String un = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.Login.COLUMN_NAME_USERNAME));
+
+            uns.add(un);
+        }
+        cursor.close();
+        return uns;
     }
 }

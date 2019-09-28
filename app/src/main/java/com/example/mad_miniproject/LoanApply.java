@@ -98,7 +98,6 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
         if(view.getId()==R.id.btnLoanApply){
             String type = spnType.getSelectedItem().toString();
             String amt = txtAmount.getText().toString();
-            double valAmt = Double.parseDouble(amt);
             if(type.equals("Choose...")){
                 errorType.setTextColor(Color.RED);
                 errorType.setText("Choose a loan type");
@@ -115,13 +114,18 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
                 errorType.setText("");
                 errorDuration.setText("");
             }else{
-                addLoan();
+                if(addLoan()){
+                    Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
+                    Intent main = new Intent(this, MainActivity.class);
+                    startActivity(main);
+                }else
+                    Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
             }
 
         }
     }
 
-    private void addLoan(){
+    private boolean addLoan(){
         String loanType = spnType.getSelectedItem().toString();
         double amount = Double.parseDouble(txtAmount.getText().toString());
         String approvedDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -137,12 +141,7 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
             id = preAccNumber+1;
         }
 
-        if(dbHelper.addInfoToLoan(id,nic,loanType,amount,approvedDate,duration,interestRate)) {
-            Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
-            Intent main = new Intent(this, MainActivity.class);
-            startActivity(main);
-        }else
-            Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
+        return (dbHelper.addInfoToLoan(id,nic,loanType,amount,approvedDate,duration,interestRate));
     }
 
 }

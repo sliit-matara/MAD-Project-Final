@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Size;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -62,12 +64,18 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
 
         accTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         accType.setAdapter(accTypeAdapter);
+        accType.setSelection(0,true);
+        View v = accType.getSelectedView();
+        ((TextView)v).setTextSize(20);
 
         ArrayAdapter<String> relationAdapter = new ArrayAdapter<String>(AccountAdd.this,android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.relationship));
 
         relationAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         relation.setAdapter(relationAdapter);
+        relation.setSelection(0,true);
+        View v1 = relation.getSelectedView();
+        ((TextView)v1).setTextSize(20);
 
         //Calander
         Calendar calendar = Calendar.getInstance();
@@ -96,6 +104,30 @@ public class AccountAdd extends AppCompatActivity implements View.OnClickListene
         };
 
         btnAddAccount.setOnClickListener(this);
+
+        accType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView)view).setTextSize(20);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        relation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView)view).setTextSize(20);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override

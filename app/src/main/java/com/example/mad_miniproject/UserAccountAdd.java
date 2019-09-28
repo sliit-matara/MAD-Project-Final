@@ -66,9 +66,20 @@ public class UserAccountAdd extends AppCompatActivity implements View.OnClickLis
                 erTxtUN.setText("");
                 erTxtPwd.setText("");
             }else {
-                addUserAccount();
-                Intent adminMain = new Intent(this, MainAdmin.class);
-                startActivity(adminMain);
+                ArrayList<String> uns = dbHelper.checkNICAvailable(nicValue);
+                ArrayList<String> un = dbHelper.checkUNAvailable(unValue);
+                if(!uns.isEmpty()){
+                    erTxtNIC.setTextColor(Color.RED);
+                    erTxtNIC.setText("NIC already registered");
+                    erTxtUN.setText("");
+                    erTxtPwd.setText("");
+                }else if(!un.isEmpty()) {
+                    erTxtUN.setTextColor(Color.RED);
+                    erTxtUN.setText("Username already exists");
+                    erTxtPwd.setText("");
+                    erTxtNIC.setText("");
+                }else
+                    addUserAccount();
             }
         }
     }
@@ -78,9 +89,12 @@ public class UserAccountAdd extends AppCompatActivity implements View.OnClickLis
         String password = txtPwd.getText().toString();
         String nic = txtNIC.getText().toString();
 
-        if(dbHelper.addInfoToLogin(userName,password,nic))
+        if (dbHelper.addInfoToLogin(userName,password,nic)){
             Toast.makeText(getApplicationContext(),"Inserted a new User!",Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(getApplicationContext(),"Connot insert user",Toast.LENGTH_LONG).show();
+            Intent adminMain = new Intent(this, MainAdmin.class);
+            startActivity(adminMain);
+        }else{
+            Toast.makeText(getApplicationContext(),"Cannot insert member",Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -50,7 +50,7 @@ public class AccountSingle extends AppCompatActivity implements View.OnClickList
                 errorNIC.setTextColor(Color.RED);
                 errorNIC.setText(msg);
             }else{
-                ArrayList<Integer> noOfAccount = dbHelper.getCountAccount(nic);
+                ArrayList<Integer> noOfAccount = dbHelper.getCountAccount(txtHolderNIC.getText().toString());
                 if(noOfAccount.size()>5){
                     errorNIC.setTextColor(Color.RED);
                     errorNIC.setText("maximum account exceeds");

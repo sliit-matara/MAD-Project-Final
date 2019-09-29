@@ -163,8 +163,11 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        ArrayList<String> emails = dbHelper.getEmail(nic);
+                        String myEmail = emails.get(0);
+
                         Intent email = new Intent(Intent.ACTION_SEND);
-                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"rushdhyahamed98@gmail.com"});
+                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{myEmail});
                         //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
                         //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
                         email.putExtra(Intent.EXTRA_SUBJECT, "Apply for a Loan");

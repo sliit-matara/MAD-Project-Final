@@ -63,8 +63,8 @@ public class AccountJoined extends AppCompatActivity implements View.OnClickList
                 error2.setTextColor(Color.RED);
                 error2.setText(msg);
             }else{
-                ArrayList<Integer> noOfAccount1 = dbHelper.getCountAccount(nic1);
-                ArrayList<Integer> noOfAccount2 = dbHelper.getCountAccount(nic2);
+                ArrayList<Integer> noOfAccount1 = dbHelper.getCountAccount(txtNIC1.getText().toString());
+                ArrayList<Integer> noOfAccount2 = dbHelper.getCountAccount(txtNIC2.getText().toString());
                 if(noOfAccount1.size()>5){
                     error2.setText("");
                     error1.setTextColor(Color.RED);

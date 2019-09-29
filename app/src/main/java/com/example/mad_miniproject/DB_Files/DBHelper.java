@@ -635,4 +635,21 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return uns;
     }
+
+    public ArrayList<String> getEmail(String nic){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT email FROM accountHolder WHERE nic=?";
+        Cursor cursor = db.rawQuery(query, new String[]{nic});
+
+        ArrayList<String> emails = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            String email = cursor.getString(cursor.getColumnIndexOrThrow(BankMaster.AccountHolder.COLUMN_NAME_EMAIL));
+
+            emails.add(email);
+        }
+        cursor.close();
+        return emails;
+    }
 }

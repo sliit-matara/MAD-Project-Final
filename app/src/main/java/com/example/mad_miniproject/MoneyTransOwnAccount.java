@@ -1,7 +1,9 @@
 package com.example.mad_miniproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -99,9 +101,26 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
                 if(addMoneyTransfer()){
                     updateBalance();
                     if (addTransaction()) {
-                        Toast.makeText(getApplicationContext(), "Money Transfer Registered!!!", Toast.LENGTH_LONG).show();
-                        Intent transSuccess = new Intent(this, MoneyTransSuccess.class);
-                        startActivity(transSuccess);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MoneyTransOwnAccount.this);
+                        builder.setCancelable(true);
+                        builder.setTitle("Transfer");
+                        builder.setMessage("Are you sure you want to transfer?");
+
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                success();
+                            }
+                        });
+                        builder.show();
+
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"Cannot Transfer",Toast.LENGTH_LONG).show();
@@ -110,6 +129,12 @@ public class MoneyTransOwnAccount extends AppCompatActivity implements View.OnCl
         }else if(view.getId()==R.id.txtShowBalance){
             showBalance();
         }
+    }
+
+    public void success(){
+        Toast.makeText(getApplicationContext(), "Money Transfer Success!", Toast.LENGTH_LONG).show();
+        Intent transSuccess = new Intent(this, MoneyTransSuccess.class);
+        startActivity(transSuccess);
     }
 
     private boolean addMoneyTransfer(){

@@ -1,7 +1,9 @@
 package com.example.mad_miniproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoanApply extends AppCompatActivity implements View.OnClickListener {
 
@@ -95,6 +99,20 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+
+        String exp_edu = "^([1-8][0-9]{5}|9[0-8][0-9]{4}|99[0-8][0-9]{3}|999[0-8][0-9]{2}|9999[0-8][0-9]|99999[0-9]|1[0-9]{6}|2000000)$";
+        String exp_home = "^([5-8][0-9]{5}|9[0-8][0-9]{4}|99[0-8][0-9]{3}|999[0-8][0-9]{2}|9999[0-8][0-9]|99999[0-9]|[1-8][0-9]{6}|9[0-8][0-9]{5}|99[0-8][0-9]{4}|999[0-8][0-9]{3}|9999[0-8][0-9]{2}|99999[0-8][0-9]|999999[0-9]|[1-6][0-9]{7}|7[0-4][0-9]{6}|75000000)$";
+        String exp_persnl = "^([2-8][0-9]{5}|9[0-8][0-9]{4}|99[0-8][0-9]{3}|999[0-8][0-9]{2}|9999[0-8][0-9]|99999[0-9]|[12][0-9]{6}|3000000)$";
+        String exp_busns = "^([5-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|[1-8][0-9]{5}|9[0-8][0-9]{4}|99[0-8][0-9]{3}|999[0-8][0-9]{2}|9999[0-8][0-9]|99999[0-9]|[1-3][0-9]{6}|4000000)$";
+
+        String value1 = txtAmount.getText().toString();
+
+        Matcher match_edu = Pattern.compile(exp_edu).matcher(value1);
+        Matcher match_home = Pattern.compile(exp_home).matcher(value1);
+        Matcher match_persnl = Pattern.compile(exp_persnl).matcher(value1);
+        Matcher match_busns = Pattern.compile(exp_busns).matcher(value1);
+
+        String amount = txtAmount.getText().toString();
         if(view.getId()==R.id.btnLoanApply){
             String type = spnType.getSelectedItem().toString();
             String amt = txtAmount.getText().toString();
@@ -103,23 +121,65 @@ public class LoanApply extends AppCompatActivity implements View.OnClickListener
                 errorType.setText("Choose a loan type");
                 errorDuration.setText("");
                 errorloanAmount.setText("");
+            }else if(type.equals("Education Loan") && (!match_edu.matches()) ){
+                errorloanAmount.setTextColor(Color.RED);
+                errorloanAmount.setText("Enter loan amount for Education! LKR (100,000 - 2,000,000)");
+                errorType.setText("");
+                errorDuration.setText("");
+            }else if(type.equals("Home Loan") && (!match_home.matches()) ) {
+                errorloanAmount.setTextColor(Color.RED);
+                errorloanAmount.setText("Enter loan amount for Home! LKR (500,000 - 75,000,000)");
+                errorType.setText("");
+                errorDuration.setText("");
+            }else if(type.equals("Personal Loan") && (!match_persnl.matches()) ) {
+                errorloanAmount.setTextColor(Color.RED);
+                errorloanAmount.setText("Enter loan amount for Personal! LKR (200,000 - 3,000,000)");
+                errorType.setText("");
+                errorDuration.setText("");
+            } else if(type.equals("Business Loan") && (!match_busns.matches()) ) {
+                errorloanAmount.setTextColor(Color.RED);
+                errorloanAmount.setText("Enter loan amount for Business! LKR (50,000 - 4,000,000)");
+                errorType.setText("");
+                errorDuration.setText("");
             }else if(spnDuration.getSelectedItem().toString().equals("Choose...")){
                 errorDuration.setTextColor(Color.RED);
                 errorDuration.setText("Choose a duration");
                 errorloanAmount.setText("");
                 errorType.setText("");
-            }else if(amt.equals("")) {
-                errorloanAmount.setTextColor(Color.RED);
-                errorloanAmount.setText("Enter a amount");
-                errorType.setText("");
-                errorDuration.setText("");
             }else{
-                if(addLoan()){
-                    Toast.makeText(getApplicationContext(), "Approved your Loan", Toast.LENGTH_LONG).show();
-                    Intent main = new Intent(this, MainActivity.class);
-                    startActivity(main);
-                }else
-                    Toast.makeText(getApplicationContext(),"Cannot approve",Toast.LENGTH_LONG).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoanApply.this);
+                builder.setCancelable(true);
+                builder.setTitle("Apply");
+                builder.setMessage("Are you sure you want to Apply?");
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Intent email = new Intent(Intent.ACTION_SEND);
+                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"rushdhyahamed98@gmail.com"});
+                        //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
+                        //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+                        email.putExtra(Intent.EXTRA_SUBJECT, "Apply for a Loan");
+                        email.putExtra(Intent.EXTRA_TEXT, "Loan type: " +spnType.getSelectedItem().toString() + "\n" + "Loan Amount: " +txtAmount.getText()+ "\n" + "Duration for re-settle: " +spnDuration.getSelectedItem().toString());
+
+
+                        //need this to prompts email client only
+                        email.setType("message/rfc822");
+
+                        startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+                    }
+                });
+                builder.show();
+
             }
 
         }
